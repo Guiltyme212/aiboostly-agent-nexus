@@ -149,45 +149,42 @@ const HowItWorks = () => {
               {/* Vertical Connecting Line */}
               <div className="absolute left-1/3 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/30"></div>
 
-              {/* Zapier Icon - Top */}
+              {/* Moving Icons */}
               <div 
-                className="absolute top-8 left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
+                className="absolute bottom-0 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
-                  animation: "zoomPulse 3s ease-in-out infinite",
+                  animation: "moveUpLoop 4s linear infinite",
                   animationDelay: "0s"
                 }}
               >
                 <ZapierIcon />
               </div>
 
-              {/* Notion Icon - Middle Top */}
               <div 
-                className="absolute top-[30%] left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
+                className="absolute bottom-0 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
-                  animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "0.6s"
+                  animation: "moveUpLoop 4s linear infinite",
+                  animationDelay: "1s"
                 }}
               >
                 <NotionIcon />
               </div>
 
-              {/* Airtable Icon - Middle Bottom */}
               <div 
-                className="absolute top-[55%] left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
+                className="absolute bottom-0 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
-                  animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "1.2s"
+                  animation: "moveUpLoop 4s linear infinite",
+                  animationDelay: "2s"
                 }}
               >
                 <AirtableIcon />
               </div>
 
-              {/* Slack Icon - Bottom */}
               <div 
-                className="absolute bottom-8 left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
+                className="absolute bottom-0 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
-                  animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "1.8s"
+                  animation: "moveUpLoop 4s linear infinite",
+                  animationDelay: "3s"
                 }}
               >
                 <SlackIcon />
