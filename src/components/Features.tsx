@@ -114,38 +114,44 @@ const Features = () => {
                 {feature.hasChart && (
                   <div className="mt-6 relative h-64 flex items-end justify-center gap-4 p-6 overflow-hidden">
                     {/* Status Label */}
-                    <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-700 group-hover:opacity-0">
+                    <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-500 group-hover:opacity-0">
                       <div className="w-3 h-3 rounded-full bg-muted-foreground/40"></div>
                       <span className="text-sm text-muted-foreground">Before Helium</span>
                     </div>
-                    <div className="absolute top-4 left-4 flex items-center gap-2 opacity-0 transition-all duration-700 group-hover:opacity-100">
-                      <div className="w-3 h-3 rounded-full bg-primary animate-pulse"></div>
+                    <div className="absolute top-4 left-4 flex items-center gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                      <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_hsl(var(--primary))] animate-pulse"></div>
                       <span className="text-sm text-primary font-semibold">After Helium</span>
                     </div>
 
                     {/* Percentage Tooltip */}
-                    <div className="absolute top-16 left-12 opacity-0 scale-95 transition-all duration-700 delay-300 group-hover:opacity-100 group-hover:scale-100">
-                      <div className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-xl px-4 py-2 shadow-lg">
+                    <div className="absolute top-16 left-12 opacity-0 scale-90 transition-all duration-500 delay-[600ms] group-hover:opacity-100 group-hover:scale-100">
+                      <div className="bg-background/90 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2.5 shadow-[0_0_20px_hsl(var(--primary)/0.3)]">
                         <span className="text-2xl font-bold text-primary">87% +</span>
                       </div>
                     </div>
 
                     {/* Chart Bars */}
-                    {[35, 55, 42, 30, 60, 38].map((height, idx) => (
-                      <div key={idx} className="relative flex-1 max-w-[40px] flex flex-col items-center gap-2">
+                    {[
+                      { active: 35, inactive: 21 },
+                      { active: 55, inactive: 33 },
+                      { active: 42, inactive: 25 },
+                      { active: 30, inactive: 18 },
+                      { active: 60, inactive: 36 },
+                      { active: 38, inactive: 23 }
+                    ].map((bar, idx) => (
+                      <div key={idx} className="relative flex-1 max-w-[40px] h-full flex flex-col justify-end items-center gap-2">
                         {/* Active Bar */}
                         <div 
-                          className="w-full rounded-full bg-gradient-to-b from-primary to-accent transition-all duration-1000 ease-out origin-bottom chart-bar"
+                          className={`chart-bar-active chart-bar-${idx} w-full rounded-full bg-gradient-to-t from-primary via-primary to-accent shadow-[0_0_20px_hsl(var(--primary)/0.4)]`}
                           style={{ 
-                            height: '0%',
-                            transitionDelay: `${idx * 100}ms`,
-                            ['--bar-height' as string]: `${height}%`
-                          } as React.CSSProperties}
+                            height: `${bar.active}%`,
+                            animationDelay: `${idx * 100}ms`
+                          }}
                         ></div>
                         {/* Inactive Bar */}
                         <div 
-                          className="w-full rounded-full bg-muted/30 transition-all duration-700"
-                          style={{ height: `${height * 0.6}%` }}
+                          className="w-full rounded-full bg-muted/30"
+                          style={{ height: `${bar.inactive}%` }}
                         ></div>
                       </div>
                     ))}

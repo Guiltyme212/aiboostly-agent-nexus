@@ -165,8 +165,70 @@ All colors MUST be HSL.
     transform: translateY(0);
   }
 
-  /* Chart bar animation */
-  .group:hover .chart-bar {
-    height: var(--bar-height) !important;
+  /* Chart bar animations */
+  .chart-bar-active {
+    height: 0 !important;
+    opacity: 0;
+    animation: none;
+  }
+
+  .group:hover .chart-bar-active {
+    animation: growUp 0.8s ease-out forwards;
+    opacity: 1;
+  }
+
+  @keyframes growUp {
+    0% {
+      height: 0;
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Individual bar target heights */
+  .group:hover .chart-bar-0 {
+    animation: growUp0 0.8s ease-out forwards;
+  }
+  .group:hover .chart-bar-1 {
+    animation: growUp1 0.8s ease-out forwards;
+  }
+  .group:hover .chart-bar-2 {
+    animation: growUp2 0.8s ease-out forwards;
+  }
+  .group:hover .chart-bar-3 {
+    animation: growUp3 0.8s ease-out forwards;
+  }
+  .group:hover .chart-bar-4 {
+    animation: growUp4 0.8s ease-out forwards;
+  }
+  .group:hover .chart-bar-5 {
+    animation: growUp5 0.8s ease-out forwards;
+  }
+
+  @keyframes growUp0 {
+    0% { height: 0; opacity: 0; }
+    100% { height: 35%; opacity: 1; }
+  }
+  @keyframes growUp1 {
+    0% { height: 0; opacity: 0; }
+    100% { height: 55%; opacity: 1; }
+  }
+  @keyframes growUp2 {
+    0% { height: 0; opacity: 0; }
+    100% { height: 42%; opacity: 1; }
+  }
+  @keyframes growUp3 {
+    0% { height: 0; opacity: 0; }
+    100% { height: 30%; opacity: 1; }
+  }
+  @keyframes growUp4 {
+    0% { height: 0; opacity: 0; }
+    100% { height: 60%; opacity: 1; }
+  }
+  @keyframes growUp5 {
+    0% { height: 0; opacity: 0; }
+    100% { height: 38%; opacity: 1; }
   }
 }
