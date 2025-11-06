@@ -30,8 +30,8 @@ const Testimonials = () => {
     <section className="py-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-5xl font-light mb-4">What Our Clients Say</h2>
-          <p className="text-muted-foreground text-lg">Real results from real businesses</p>
+          <h2 className="text-5xl md:text-6xl mb-4">What Our Clients Say</h2>
+          <p className="text-muted-foreground text-base leading-relaxed">Real results from real businesses</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -46,7 +46,7 @@ const Testimonials = () => {
                   <Star key={i} size={16} weight="fill" className="text-primary" />
                 ))}
               </div>
-              <p className="text-foreground mb-6 leading-relaxed opacity-90">"{testimonial.quote}"</p>
+              <p className="text-foreground mb-6 leading-relaxed">"{testimonial.quote}"</p>
               <div className="flex items-center gap-3 mb-4">
                 <img
                   src={testimonial.image}

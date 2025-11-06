@@ -27,9 +27,9 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
                 <div className="w-5 h-5 rounded bg-background"></div>
               </div>
-              <span className="text-xl font-light">AiBoostly</span>
+              <span className="text-xl font-medium">AiBoostly</span>
             </div>
-            <p className="text-muted-foreground text-sm opacity-80 max-w-xs">
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
               Custom AI agents and automation solutions that remove repetitive work from your business.
             </p>
             <div className="flex gap-4 mt-6">
@@ -94,7 +94,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 text-center text-sm text-muted-foreground opacity-70">
+        <div className="pt-8 border-t border-white/10 text-center text-sm text-muted-foreground">
           <p>© 2025 AiBoostly. All rights reserved.</p>
         </div>
       </div>

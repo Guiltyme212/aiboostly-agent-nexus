@@ -60,9 +60,9 @@ const Features = () => {
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16 scroll-reveal">
-          <p className="text-primary text-sm uppercase tracking-widest mb-2">SERVICES</p>
-          <h2 className="text-5xl font-light mb-4">What We Offer</h2>
-          <p className="text-muted-foreground text-lg opacity-90">Comprehensive AI automation services tailored to your business</p>
+          <p className="text-primary text-sm uppercase tracking-widest mb-3 font-medium">SERVICES</p>
+          <h2 className="text-5xl md:text-6xl mb-4">What We Offer</h2>
+          <p className="text-muted-foreground text-base leading-relaxed">Comprehensive AI automation services tailored to your business</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -84,10 +84,10 @@ const Features = () => {
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-2xl font-medium mb-3 text-white group-hover:text-primary transition-colors duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">
+                <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>
 

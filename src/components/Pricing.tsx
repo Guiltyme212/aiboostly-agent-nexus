@@ -54,8 +54,8 @@ const Pricing = () => {
     <section id="pricing" className="py-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-5xl font-light mb-4">Pricing</h2>
-          <p className="text-muted-foreground text-lg">Choose the plan that fits your needs</p>
+          <h2 className="text-5xl md:text-6xl mb-4">Pricing</h2>
+          <p className="text-muted-foreground text-base leading-relaxed">Choose the plan that fits your needs</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -74,12 +74,12 @@ const Pricing = () => {
               )}
 
               <div className="mb-8">
-                <h3 className="text-2xl font-light mb-2">{plan.name}</h3>
+                <h3 className="text-2xl font-medium mb-2">{plan.name}</h3>
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-4xl font-light">{plan.price}</span>
+                  <span className="text-5xl">{plan.price}</span>
                   <span className="text-muted-foreground text-sm">/ {plan.period}</span>
                 </div>
-                <p className="text-sm text-muted-foreground opacity-90">{plan.description}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{plan.description}</p>
               </div>
 
               <ul className="space-y-4 mb-8">
@@ -92,7 +92,7 @@ const Pricing = () => {
               </ul>
 
               <Button
-                className={`w-full py-6 rounded-full font-light ${
+                className={`w-full py-6 rounded-full font-medium ${
                   plan.recommended
                     ? "neumorphic-button"
                     : "bg-secondary/50 backdrop-blur border border-white/10 hover:bg-secondary/70"

@@ -38,8 +38,8 @@ const FAQ = () => {
     <section className="py-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-5xl font-light mb-4">Frequently Asked Questions</h2>
-          <p className="text-muted-foreground text-lg">Everything you need to know</p>
+          <h2 className="text-5xl md:text-6xl mb-4">Frequently Asked Questions</h2>
+          <p className="text-muted-foreground text-base leading-relaxed">Everything you need to know</p>
         </div>
 
         <div className="max-w-3xl mx-auto scroll-reveal">
@@ -50,10 +50,10 @@ const FAQ = () => {
                 value={`item-${index}`}
                 className="glass-card px-6 border-none"
               >
-                <AccordionTrigger className="text-left text-lg font-light hover:text-primary">
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-primary">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground opacity-90 leading-relaxed">
+                <AccordionContent className="text-muted-foreground leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

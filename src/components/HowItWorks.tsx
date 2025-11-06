@@ -47,19 +47,19 @@ const HowItWorks = () => {
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-4 scroll-reveal">
-          <p className="text-primary text-sm uppercase tracking-widest mb-2">PROCESS</p>
-          <h2 className="text-5xl font-light mb-4">How it works</h2>
+          <p className="text-primary text-sm uppercase tracking-widest mb-3 font-medium">PROCESS</p>
+          <h2 className="text-5xl md:text-6xl mb-4">How it works</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
           {/* Card 1 - Share Your Workflow */}
           <Card className="glass-card p-8 relative hover:scale-105 transition-all duration-500 scroll-reveal">
-            <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-light text-background">
+            <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-medium text-background">
               1
             </div>
             
-            <h3 className="text-2xl font-light mb-4">Share Your Workflow</h3>
-            <p className="text-muted-foreground leading-relaxed opacity-90 mb-8">
+            <h3 className="text-2xl font-medium mb-4">Share Your Workflow</h3>
+            <p className="text-muted-foreground leading-relaxed mb-8">
               From lead gen to client onboarding, just share your workflow and the tools you use.
             </p>
 
@@ -146,12 +146,12 @@ const HowItWorks = () => {
 
           {/* Card 2 - We Build the System */}
           <Card className="glass-card p-8 relative hover:scale-105 transition-all duration-500 scroll-reveal" style={{ animationDelay: "0.2s" }}>
-            <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-light text-background">
+            <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-medium text-background">
               2
             </div>
             
-            <h3 className="text-2xl font-light mb-4">We Build the System</h3>
-            <p className="text-muted-foreground leading-relaxed opacity-90 mb-8">
+            <h3 className="text-2xl font-medium mb-4">We Build the System</h3>
+            <p className="text-muted-foreground leading-relaxed mb-8">
               We design and set up custom automations that connect your tools with AI—so work happens while you sleep.
             </p>
 
@@ -251,12 +251,12 @@ const HowItWorks = () => {
 
           {/* Card 3 - Launch and Take Control */}
           <Card className="glass-card p-8 relative hover:scale-105 transition-all duration-500 scroll-reveal" style={{ animationDelay: "0.4s" }}>
-            <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-light text-background">
+            <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white flex items-center justify-center text-2xl font-medium text-background">
               3
             </div>
             
-            <h3 className="text-2xl font-light mb-4">Launch and Take Control</h3>
-            <p className="text-muted-foreground leading-relaxed opacity-90 mb-8">
+            <h3 className="text-2xl font-medium mb-4">Launch and Take Control</h3>
+            <p className="text-muted-foreground leading-relaxed mb-8">
               You get a plug-and-play dashboard with a walkthrough to manage everything easily.
             </p>
 

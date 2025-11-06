@@ -36,7 +36,7 @@ const Navigation = () => {
             <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
               <div className="w-5 h-5 rounded bg-background"></div>
             </div>
-            <span className="text-xl font-light tracking-tight">AiBoostly</span>
+            <span className="text-xl font-medium tracking-tight">AiBoostly</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -50,7 +50,7 @@ const Navigation = () => {
                 {link.label}
               </a>
             ))}
-            <Button className="neumorphic-button px-6 py-2 rounded-full font-light">
+            <Button className="neumorphic-button px-6 py-2 rounded-full font-medium">
               Book a Call
             </Button>
           </div>
@@ -76,13 +76,13 @@ const Navigation = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-2xl font-light text-foreground hover:text-primary transition-colors"
+              className="text-2xl text-foreground hover:text-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.label}
             </a>
           ))}
-          <Button className="neumorphic-button px-8 py-3 rounded-full text-lg font-light mt-4">
+          <Button className="neumorphic-button px-8 py-3 rounded-full text-lg font-medium mt-4">
             Book a Call
           </Button>
         </div>
