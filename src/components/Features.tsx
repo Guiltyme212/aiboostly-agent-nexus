@@ -1,10 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Chats, ChartLineUp, Robot, Plugs } from "@phosphor-icons/react";
-import { useState } from "react";
 
 const Features = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   const features = [
     {
       title: "AI Inbox & Auto-Replies",
@@ -36,26 +33,6 @@ const Features = () => {
     },
   ];
 
-  const isCardAnimating = (index: number): string => {
-    if (hoveredIndex === null) return '';
-    
-    const hoveredCol = hoveredIndex % 2;
-    const currentCol = index % 2;
-    const hoveredRow = Math.floor(hoveredIndex / 2);
-    const currentRow = Math.floor(index / 2);
-    
-    // Only animate cards in the same column
-    if (hoveredCol !== currentCol) return '';
-    
-    // Card directly below the hovered one
-    if (currentRow === hoveredRow + 1) return 'animate-swap-up';
-    
-    // Card directly above the hovered one
-    if (currentRow === hoveredRow - 1) return 'animate-swap-down';
-    
-    return '';
-  };
-
   return (
     <section id="features" className="py-24 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
@@ -67,14 +44,12 @@ const Features = () => {
           <p className="text-muted-foreground text-lg opacity-90">Comprehensive AI automation services tailored to your business</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto relative">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {features.map((feature, index) => (
             <Card
               key={index}
-              className={`glass-card p-8 transition-all duration-500 scroll-reveal cursor-pointer relative overflow-hidden group ${isCardAnimating(index)}`}
+              className="glass-card p-8 transition-all duration-500 scroll-reveal cursor-pointer relative overflow-hidden group hover:scale-105"
               style={{ animationDelay: `${index * 0.1}s` }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
             >
                 {/* Animated border glow on hover */}
                 <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
