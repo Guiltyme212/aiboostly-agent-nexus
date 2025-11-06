@@ -1,0 +1,77 @@
+import { Button } from "@/components/ui/button";
+import { Sparkle } from "@phosphor-icons/react";
+import heroDashboard from "@/assets/hero-dashboard.jpg";
+
+const Hero = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20 opacity-30"></div>
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-5xl mx-auto text-center fade-in-up">
+          {/* Testimonial */}
+          <div className="flex items-center justify-center gap-3 mb-8 opacity-80">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+              alt="Testimonial"
+              className="w-10 h-10 rounded-full border-2 border-primary/50"
+            />
+            <p className="text-sm italic text-muted-foreground">
+              "Data dashboards now run themselves. We just watch."
+            </p>
+            <span className="text-xs text-muted-foreground">— Jamal Ortiz, Co-founder, Taskflux</span>
+          </div>
+
+          {/* Main Heading */}
+          <h1 className="text-6xl md:text-8xl font-light mb-6 leading-tight">
+            Automate,
+            <br />
+            Optimize, Scale
+            <br />
+            <span className="text-primary">With AI</span>
+          </h1>
+
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-90">
+            Boost efficiency and eliminate repetitive tasks with AI-powered automation solutions
+            tailored to your business needs.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button className="neumorphic-button px-8 py-6 rounded-full text-lg font-light">
+              <Sparkle size={20} weight="light" className="mr-2" />
+              Launch Agent Demo
+            </Button>
+            <Button
+              variant="outline"
+              className="px-8 py-6 rounded-full text-lg font-light bg-secondary/50 backdrop-blur border-white/10 hover:bg-secondary/70"
+            >
+              Our Services
+            </Button>
+          </div>
+
+          {/* Dashboard Image */}
+          <div className="relative max-w-5xl mx-auto floating-animation">
+            <div className="glass-card rounded-2xl p-2 shadow-2xl">
+              <img
+                src={heroDashboard}
+                alt="AI Automation Dashboard"
+                className="w-full rounded-xl"
+              />
+            </div>
+          </div>
+
+          {/* Trusted By */}
+          <p className="text-sm text-muted-foreground mt-16 opacity-70">
+            Trusted by 150+ startups & teams
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
