@@ -64,9 +64,9 @@ const HowItWorks = () => {
 
             {/* Icon Bubbles - Animated */}
             <div className="relative h-64 mt-8 overflow-hidden">
-              {/* Slack Icon */}
+              {/* Slack Icon - Top Left */}
               <div 
-                className="absolute top-4 left-4 w-20 h-20 rounded-full flex items-center justify-center text-white"
+                className="absolute top-2 left-2 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -77,9 +77,9 @@ const HowItWorks = () => {
                 <SlackIcon />
               </div>
 
-              {/* Gmail Icon */}
+              {/* Gmail Icon - Top Right */}
               <div 
-                className="absolute top-8 right-8 w-24 h-24 rounded-full flex items-center justify-center text-white"
+                className="absolute top-6 right-4 w-24 h-24 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -90,9 +90,9 @@ const HowItWorks = () => {
                 <GmailIcon />
               </div>
 
-              {/* Calendar Icon */}
+              {/* Calendar Icon - Middle Left */}
               <div 
-                className="absolute bottom-24 left-2 w-20 h-20 rounded-full flex items-center justify-center text-white"
+                className="absolute top-[45%] left-1 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -103,9 +103,9 @@ const HowItWorks = () => {
                 <CalendarIcon />
               </div>
 
-              {/* Airtable Icon */}
+              {/* Airtable Icon - Middle Right */}
               <div 
-                className="absolute bottom-20 right-16 w-16 h-16 rounded-full flex items-center justify-center text-white"
+                className="absolute top-[52%] right-12 w-16 h-16 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -116,9 +116,9 @@ const HowItWorks = () => {
                 <AirtableIcon />
               </div>
 
-              {/* Notion Icon */}
+              {/* Notion Icon - Bottom Center */}
               <div 
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full flex items-center justify-center text-white"
+                className="absolute bottom-2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
