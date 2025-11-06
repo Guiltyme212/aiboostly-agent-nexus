@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Sparkle } from "@phosphor-icons/react";
-import heroDashboard from "@/assets/hero-dashboard.jpg";
 import { useState, useEffect } from "react";
 
 const Hero = () => {
@@ -74,21 +73,10 @@ const Hero = () => {
               className="px-8 py-6 rounded-full text-lg font-light bg-secondary/50 backdrop-blur border-white/10 hover:bg-secondary/70"
             >
               Our Services
-            </Button>
-          </div>
+          </Button>
+        </div>
 
-          {/* Dashboard Image */}
-          <div className="relative max-w-5xl mx-auto floating-animation">
-            <div className="glass-card rounded-2xl p-2 shadow-2xl">
-              <img
-                src={heroDashboard}
-                alt="AI Automation Dashboard"
-                className="w-full rounded-xl"
-              />
-            </div>
-          </div>
-
-          {/* Trusted By */}
+        {/* Trusted By */}
           <p className="text-sm text-muted-foreground mt-16 opacity-70">
             Trusted by 150+ startups & teams
           </p>

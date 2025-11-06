@@ -1,35 +1,26 @@
-import { Card } from "@/components/ui/card";
-import { Chats, ChartLineUp, Robot, Plugs } from "@phosphor-icons/react";
+import { Chats, ChartLineUp, Robot, Plugs, EnvelopeSimple, Users, Database, VideoCamera } from "@phosphor-icons/react";
 
 const Features = () => {
   const features = [
     {
-      title: "AI Inbox & Auto-Replies",
-      description: "Intelligent email handling that responds instantly and routes queries automatically.",
-      icon: Chats,
-      gradient: "from-primary/20 to-primary/5",
+      title: "Lead Generation & Outreach",
+      description: "Automate lead sourcing, email follow-ups, and engagement to grow your business effortlessly.",
+      icon: EnvelopeSimple,
+      gradient: "from-[#d7cfcf] to-[#9198e5]",
       status: "Running Currently...",
+      integrations: [
+        { name: "Gmail", subtitle: "Compose a mail", icon: "M" },
+        { name: "AirTable", subtitle: "Send mail to the users", icon: "📦" },
+        { name: "Zoom", subtitle: "Schedule the call", icon: "🎥" },
+      ],
     },
     {
-      title: "Sales & CRM Agents",
-      description: "Automate lead qualification, follow-ups, and pipeline management with smart AI agents.",
-      icon: ChartLineUp,
-      gradient: "from-accent/20 to-accent/5",
+      title: "Data Intelligence",
+      description: "Turn raw data into actionable insights with AI-powered analytics.",
+      icon: Database,
+      gradient: "from-[#9198e5] to-[#712020]",
       status: "Active",
-    },
-    {
-      title: "Operations Agent",
-      description: "Handle data entry, document processing, and workflow automation effortlessly.",
-      icon: Robot,
-      gradient: "from-primary/20 to-primary/5",
-      status: "Connected",
-    },
-    {
-      title: "Tool Integrations",
-      description: "Connect seamlessly with your CRM, Slack, Notion, email, and voice systems.",
-      icon: Plugs,
-      gradient: "from-accent/20 to-accent/5",
-      status: "Synced",
+      integrations: [],
     },
   ];
 
@@ -44,44 +35,53 @@ const Features = () => {
           <p className="text-muted-foreground text-lg opacity-90">Comprehensive AI automation services tailored to your business</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {features.map((feature, index) => (
-            <Card
+            <div
               key={index}
-              className="glass-card p-8 transition-all duration-500 scroll-reveal cursor-pointer relative overflow-hidden group hover:scale-105"
+              className="scroll-reveal"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-                {/* Animated border glow on hover */}
-                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 via-accent/10 to-transparent blur-xl"></div>
-                </div>
-
-                <div className="relative z-10">
-                  {/* Icon and Status Badge */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                      <feature.icon size={32} weight="light" className="text-primary" />
-                    </div>
-                    
-                    {/* Status Badge - appears on hover */}
-                    <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
-                      <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 whitespace-nowrap">
-                        {feature.status}
-                      </span>
-                    </div>
+              {/* Main Feature Card */}
+              <div className="bg-[#1a1a1a] rounded-3xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-500 group cursor-pointer hover:scale-[1.02]">
+                <div className="flex items-start justify-between mb-6">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                    <feature.icon size={28} weight="duotone" className="text-white" />
                   </div>
-
-                  <h3 className="text-2xl font-light mb-4 group-hover:text-primary transition-colors duration-300">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed opacity-90">
-                    {feature.description}
-                  </p>
-
-                  {/* Hover indicator line */}
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-accent to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  
+                  <span className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                    {feature.status}
+                  </span>
                 </div>
-            </Card>
+
+                <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  {feature.description}
+                </p>
+
+                {/* Integration Cards */}
+                {feature.integrations && feature.integrations.length > 0 && (
+                  <div className="mt-6 space-y-3">
+                    {feature.integrations.map((integration, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-[#2a2a2a] rounded-xl p-3 flex items-center gap-3 hover:bg-[#333333] transition-all duration-300 hover:scale-105"
+                      >
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-lg font-bold">
+                          {integration.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white text-sm font-semibold">{integration.name}</p>
+                          <p className="text-muted-foreground text-xs truncate">{integration.subtitle}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       </div>
