@@ -1,18 +1,43 @@
 import { Card } from "@/components/ui/card";
-import { 
-  ClipboardText, 
-  Gear, 
-  RocketLaunch,
-  EnvelopeSimple,
-  Calendar,
-  File,
-  Notepad,
-  ArrowRight,
-  Cube,
-  ArrowsClockwise,
-  ShareNetwork
-} from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import heroDashboard from "@/assets/hero-dashboard.jpg";
+
+// Tool Icon Components
+const SlackIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+    <path d="M6 15a2 2 0 01-2 2 2 2 0 01-2-2 2 2 0 012-2h2v2zm1 0a2 2 0 012-2 2 2 0 012 2v5a2 2 0 01-2 2 2 2 0 01-2-2v-5zM9 6a2 2 0 01-2-2 2 2 0 012-2 2 2 0 012 2v2H9zm0 1a2 2 0 012 2 2 2 0 01-2 2H4a2 2 0 01-2-2 2 2 0 012-2h5zm9 2a2 2 0 012-2 2 2 0 012 2 2 2 0 01-2 2h-2V9zm-1 0a2 2 0 01-2 2 2 2 0 01-2-2V4a2 2 0 012-2 2 2 0 012 2v5zm-2 9a2 2 0 012 2 2 2 0 01-2 2 2 2 0 01-2-2v-2h2zm0-1a2 2 0 01-2-2 2 2 0 012-2h5a2 2 0 012 2 2 2 0 01-2 2h-5z"/>
+  </svg>
+);
+
+const NotionIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+    <path d="M4 4.5A2.5 2.5 0 016.5 2h11A2.5 2.5 0 0120 4.5v15a2.5 2.5 0 01-2.5 2.5h-11A2.5 2.5 0 014 19.5v-15zm3.5 2a.5.5 0 000 1h9a.5.5 0 000-1h-9zm0 3a.5.5 0 000 1h9a.5.5 0 000-1h-9zm0 3a.5.5 0 000 1h9a.5.5 0 000-1h-9zm0 3a.5.5 0 000 1h5a.5.5 0 000-1h-5z"/>
+  </svg>
+);
+
+const GmailIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+);
+
+const CalendarIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+    <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm2 4h10v2H7v-2z"/>
+  </svg>
+);
+
+const AirtableIcon = () => (
+  <svg viewBox="0 0 54.75 45.776" fill="currentColor" className="w-8 h-8">
+    <path d="M 27.357 0 C 26.367 0 25.372 0.196 24.437 0.586 L 4.058 9.013 C 2.911 9.488 2.941 11.085 4.086 11.559 L 24.576 19.676 C 26.371 20.404 28.379 20.404 30.174 19.676 L 50.664 11.559 C 51.812 11.112 51.812 9.488 50.692 9.013 L 30.258 0.586 C 29.34 0.198 28.354 -0.001 27.357 0 Z M 53.381 13.893 C 53.207 13.894 53.035 13.929 52.875 13.995 L 30.035 22.84 C 29.512 23.054 29.17 23.562 29.168 24.127 L 29.168 44.421 C 29.172 44.872 29.399 45.291 29.773 45.543 C 30.147 45.795 30.622 45.846 31.041 45.68 L 53.883 36.806 C 54.408 36.611 54.754 36.108 54.75 35.549 L 54.75 15.255 C 54.745 14.502 54.134 13.895 53.381 13.895 Z M 1.542 13.982 C 1.133 13.967 0.736 14.124 0.447 14.415 C 0.196 14.668 0 14.974 0 15.339 L 0 34.399 C 0 35.407 1.175 36.08 2.071 35.631 L 16.375 28.773 L 17.075 28.438 L 23.848 25.162 C 24.911 24.66 24.829 23.091 23.709 22.671 L 2.014 14.08 C 1.865 14.017 1.704 13.983 1.542 13.98 Z"/>
+  </svg>
+);
+
+const ZapierIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+  </svg>
+);
 
 const HowItWorks = () => {
   return (
@@ -39,59 +64,59 @@ const HowItWorks = () => {
 
             {/* Icon Bubbles - Animated */}
             <div className="relative h-64 mt-8 overflow-hidden">
-              {/* List Icon */}
+              {/* Slack Icon */}
               <div 
-                className="absolute top-8 left-8 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute top-8 left-8 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "0s"
                 }}
               >
-                <ClipboardText size={32} weight="light" className="text-foreground" />
+                <SlackIcon />
               </div>
 
-              {/* Email Icon */}
+              {/* Gmail Icon */}
               <div 
-                className="absolute top-4 right-12 w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute top-4 right-8 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "0.6s"
                 }}
               >
-                <EnvelopeSimple size={40} weight="light" className="text-foreground" />
+                <GmailIcon />
               </div>
 
               {/* Calendar Icon */}
               <div 
-                className="absolute bottom-16 left-4 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute bottom-20 left-4 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "1.2s"
                 }}
               >
-                <Calendar size={32} weight="light" className="text-foreground" />
+                <CalendarIcon />
               </div>
 
-              {/* File Icon */}
+              {/* Airtable Icon */}
               <div 
-                className="absolute bottom-12 right-16 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute bottom-16 right-12 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "1.8s"
                 }}
               >
-                <File size={32} weight="light" className="text-foreground" />
+                <AirtableIcon />
               </div>
 
-              {/* Notepad Icon */}
+              {/* Notion Icon */}
               <div 
-                className="absolute bottom-2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "2.4s"
                 }}
               >
-                <Notepad size={32} weight="light" className="text-foreground" />
+                <NotionIcon />
               </div>
             </div>
           </Card>
@@ -121,50 +146,48 @@ const HowItWorks = () => {
 
             {/* Icon Bubbles - Animated */}
             <div className="relative h-64 mt-8 overflow-hidden">
-              {/* 3D Cube Icon */}
+              {/* Zapier Icon - Top Center */}
               <div 
-                className="absolute top-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute top-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "0.3s"
                 }}
               >
-                <Cube size={32} weight="light" className="text-foreground" />
+                <ZapierIcon />
               </div>
 
-              {/* Notion-style Icon */}
+              {/* Notion Icon - Bottom Left */}
               <div 
-                className="absolute bottom-24 left-12 w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute bottom-20 left-12 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "0.9s"
                 }}
               >
-                <div className="w-10 h-10 bg-foreground rounded-lg flex items-center justify-center">
-                  <span className="text-background font-bold text-xl">N</span>
-                </div>
+                <NotionIcon />
               </div>
 
-              {/* Gear/Settings Icon */}
+              {/* Airtable Icon - Bottom Center */}
               <div 
-                className="absolute bottom-8 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute bottom-8 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
-                  animation: "zoomPulse 3s ease-in-out infinite, spin 8s linear infinite",
-                  animationDelay: "1.5s, 0s"
+                  animation: "zoomPulse 3s ease-in-out infinite",
+                  animationDelay: "1.5s"
                 }}
               >
-                <Gear size={28} weight="light" className="text-foreground" />
+                <AirtableIcon />
               </div>
 
-              {/* Refresh/Automation Arrow */}
+              {/* Slack Icon - Bottom Right */}
               <div 
-                className="absolute bottom-16 right-8 w-24 h-24 rounded-full flex items-center justify-center"
+                className="absolute bottom-16 right-8 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
                   animationDelay: "2.1s"
                 }}
               >
-                <ArrowsClockwise size={48} weight="light" className="text-primary" />
+                <SlackIcon />
               </div>
             </div>
           </Card>
@@ -214,15 +237,15 @@ const HowItWorks = () => {
                 />
               </div>
 
-              {/* Share Network Icon Bubble */}
+              {/* Zapier Icon Bubble */}
               <div 
-                className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
+                className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite, float 6s ease-in-out infinite",
                   animationDelay: "0.5s, 0s"
                 }}
               >
-                <ShareNetwork size={32} weight="light" className="text-foreground" />
+                <ZapierIcon />
               </div>
             </div>
           </Card>
