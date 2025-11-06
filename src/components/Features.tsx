@@ -64,18 +64,45 @@ const Features = () => {
                 {/* Integration Cards */}
                 {feature.integrations && feature.integrations.length > 0 && (
                   <div className="mt-6 relative">
-                    {/* Connecting Line */}
-                    <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/30 via-accent/30 to-primary/30 group-hover:from-primary/60 group-hover:via-accent/60 group-hover:to-primary/60 transition-all duration-500"></div>
+                    {/* Connecting Line - Centered */}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-primary/30 via-accent/30 to-primary/30 group-hover:from-primary/60 group-hover:via-accent/60 group-hover:to-primary/60 transition-all duration-700"></div>
                     
-                    <div className="space-y-3 relative">
+                    <div className="grid grid-rows-3 gap-3 relative">
                       {feature.integrations.map((integration, idx) => (
                         <div
                           key={idx}
-                          className={`bg-[#2a2a2a] rounded-xl p-3 flex items-center gap-3 hover:bg-[#333333] transition-all duration-500 relative z-10
-                            ${idx === 0 ? 'group-hover:translate-y-[84px]' : ''}
-                            ${idx === 1 ? 'group-hover:-translate-y-[84px]' : ''}
+                          className={`bg-[#2a2a2a] rounded-xl p-3 flex items-center gap-3 hover:bg-[#333333] relative z-10
                             hover:scale-105`}
-                          style={{ transitionDelay: `${idx * 50}ms` }}
+                          style={{ 
+                            gridRow: idx === 0 && feature.integrations.length > 0 ? 
+                              'var(--row-1, 1)' : 
+                              idx === 1 ? 'var(--row-2, 2)' : '3',
+                            transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                            ['--row-1' as string]: idx === 0 ? '1' : '2',
+                            ['--row-2' as string]: idx === 1 ? '2' : '1',
+                          }}
+                          onMouseEnter={(e) => {
+                            const parent = e.currentTarget.parentElement;
+                            if (parent && idx < 2) {
+                              const firstCard = parent.children[1] as HTMLElement;
+                              const secondCard = parent.children[2] as HTMLElement;
+                              if (firstCard && secondCard) {
+                                firstCard.style.gridRow = '2';
+                                secondCard.style.gridRow = '1';
+                              }
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            const parent = e.currentTarget.parentElement;
+                            if (parent && idx < 2) {
+                              const firstCard = parent.children[1] as HTMLElement;
+                              const secondCard = parent.children[2] as HTMLElement;
+                              if (firstCard && secondCard) {
+                                firstCard.style.gridRow = '1';
+                                secondCard.style.gridRow = '2';
+                              }
+                            }
+                          }}
                         >
                           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-lg font-bold">
                             {integration.icon}
