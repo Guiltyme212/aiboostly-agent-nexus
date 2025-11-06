@@ -170,15 +170,15 @@ const Features = () => {
                 {feature.hasChatbot && (
                   <div className="mt-6 relative h-64 flex flex-col justify-center px-6 py-4">
                     {/* Customer Query Label */}
-                    <p className="text-muted-foreground text-sm italic mb-3">Customer Query</p>
+                    <p className="text-muted-foreground text-sm italic mb-3 transition-all duration-500 group-hover:-translate-y-3">Customer Query</p>
                     
                     {/* Query Bubble */}
-                    <div className="bg-primary/90 text-white rounded-3xl px-5 py-3.5 max-w-[85%] mb-3">
+                    <div className="bg-primary/90 text-white rounded-3xl px-5 py-3.5 max-w-[85%] mb-3 transition-all duration-500 group-hover:-translate-y-3">
                       <p className="text-sm">What are your business hours?</p>
                     </div>
 
                     {/* Avatar and Response Container */}
-                    <div className="flex items-start gap-3 mb-2">
+                    <div className="flex items-start gap-3 mb-2 transition-all duration-500 group-hover:-translate-y-3">
                       {/* Avatar */}
                       <div className="w-12 h-12 rounded-full bg-muted overflow-hidden flex-shrink-0">
                         <img 
