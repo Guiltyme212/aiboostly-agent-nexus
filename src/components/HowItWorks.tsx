@@ -144,50 +144,78 @@ const HowItWorks = () => {
               We design and set up custom automations that connect your tools with AI—so work happens while you sleep.
             </p>
 
-            {/* Icon Bubbles - Animated */}
-            <div className="relative h-64 mt-8 overflow-hidden">
-              {/* Zapier Icon - Top Center */}
+            {/* Icon Bubbles - Animated with Vertical Flow */}
+            <div className="relative h-64 mt-8 overflow-hidden flex items-center justify-center">
+              {/* Vertical Connecting Line */}
+              <div className="absolute left-1/3 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/30"></div>
+
+              {/* Zapier Icon - Top */}
               <div 
-                className="absolute top-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
+                className="absolute top-8 left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "0.3s"
+                  animationDelay: "0s"
                 }}
               >
                 <ZapierIcon />
               </div>
 
-              {/* Notion Icon - Bottom Left */}
+              {/* Notion Icon - Middle Top */}
               <div 
-                className="absolute bottom-20 left-12 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
+                className="absolute top-[30%] left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "0.9s"
+                  animationDelay: "0.6s"
                 }}
               >
                 <NotionIcon />
               </div>
 
-              {/* Airtable Icon - Bottom Center */}
+              {/* Airtable Icon - Middle Bottom */}
               <div 
-                className="absolute bottom-8 left-1/3 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
+                className="absolute top-[55%] left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "1.5s"
+                  animationDelay: "1.2s"
                 }}
               >
                 <AirtableIcon />
               </div>
 
-              {/* Slack Icon - Bottom Right */}
+              {/* Slack Icon - Bottom */}
               <div 
-                className="absolute bottom-16 right-8 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
+                className="absolute bottom-8 left-1/3 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center z-10"
                 style={{
                   animation: "zoomPulse 3s ease-in-out infinite",
-                  animationDelay: "2.1s"
+                  animationDelay: "1.8s"
                 }}
               >
                 <SlackIcon />
+              </div>
+
+              {/* Circular Arrow showing direction */}
+              <div 
+                className="absolute top-1/2 right-12 -translate-y-1/2 w-24 h-24"
+                style={{
+                  animation: "zoomPulse 3s ease-in-out infinite",
+                  animationDelay: "2.4s"
+                }}
+              >
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                      <polygon points="0 0, 10 5, 0 10" fill="hsl(var(--primary))" />
+                    </marker>
+                  </defs>
+                  <path
+                    d="M 50 10 A 30 30 0 1 1 20 50"
+                    fill="none"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    markerEnd="url(#arrowhead)"
+                  />
+                </svg>
               </div>
             </div>
           </Card>
