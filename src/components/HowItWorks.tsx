@@ -66,7 +66,7 @@ const HowItWorks = () => {
             <div className="relative h-64 mt-8 overflow-hidden">
               {/* Slack Icon */}
               <div 
-                className="absolute top-8 left-8 w-20 h-20 rounded-full flex items-center justify-center text-white"
+                className="absolute top-4 left-4 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -79,7 +79,7 @@ const HowItWorks = () => {
 
               {/* Gmail Icon */}
               <div 
-                className="absolute top-4 right-12 w-24 h-24 rounded-full flex items-center justify-center text-white"
+                className="absolute top-8 right-8 w-24 h-24 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -92,7 +92,7 @@ const HowItWorks = () => {
 
               {/* Calendar Icon */}
               <div 
-                className="absolute bottom-20 left-6 w-20 h-20 rounded-full flex items-center justify-center text-white"
+                className="absolute bottom-24 left-2 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -105,7 +105,7 @@ const HowItWorks = () => {
 
               {/* Airtable Icon */}
               <div 
-                className="absolute bottom-16 right-20 w-16 h-16 rounded-full flex items-center justify-center text-white"
+                className="absolute bottom-20 right-16 w-16 h-16 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
@@ -118,7 +118,7 @@ const HowItWorks = () => {
 
               {/* Notion Icon */}
               <div 
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full flex items-center justify-center text-white"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
                   background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
                   boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
