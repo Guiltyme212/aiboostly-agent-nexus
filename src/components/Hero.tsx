@@ -1,13 +1,37 @@
 import { Button } from "@/components/ui/button";
 import { Sparkle } from "@phosphor-icons/react";
 import heroDashboard from "@/assets/hero-dashboard.jpg";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20 opacity-30"></div>
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl"></div>
+      
+      {/* Mouse-following gradient spot */}
+      <div 
+        className="absolute w-[600px] h-[600px] bg-primary/40 rounded-full blur-3xl transition-all duration-700 ease-out pointer-events-none"
+        style={{
+          left: `${mousePosition.x}%`,
+          top: `${mousePosition.y}%`,
+          transform: 'translate(-50%, -50%)',
+        }}
+      ></div>
+      
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-6 relative z-10">
