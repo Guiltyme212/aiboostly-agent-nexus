@@ -12,6 +12,7 @@ import {
   ArrowsClockwise,
   ShareNetwork
 } from "@phosphor-icons/react";
+import heroDashboard from "@/assets/hero-dashboard.jpg";
 
 const HowItWorks = () => {
   return (
@@ -37,7 +38,7 @@ const HowItWorks = () => {
             </p>
 
             {/* Icon Bubbles - Animated */}
-            <div className="relative h-64 mt-8">
+            <div className="relative h-64 mt-8 overflow-hidden">
               {/* List Icon */}
               <div 
                 className="absolute top-8 left-8 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
@@ -119,7 +120,7 @@ const HowItWorks = () => {
             </p>
 
             {/* Icon Bubbles - Animated */}
-            <div className="relative h-64 mt-8">
+            <div className="relative h-64 mt-8 overflow-hidden">
               {/* 3D Cube Icon */}
               <div 
                 className="absolute top-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center"
@@ -203,11 +204,11 @@ const HowItWorks = () => {
 
               {/* Dashboard Image Container */}
               <div className="relative glass-card rounded-lg overflow-hidden border border-white/10">
-                <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-medium">
+                <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-medium z-10">
                   ● LIVE
                 </div>
                 <img
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop"
+                  src={heroDashboard}
                   alt="Dashboard Interface"
                   className="w-full h-48 object-cover"
                 />
