@@ -132,17 +132,17 @@ const Features = () => {
 
                     {/* Chart Bars */}
                     {[
-                      { active: 70, inactive: 21 },
-                      { active: 85, inactive: 33 },
-                      { active: 65, inactive: 25 },
-                      { active: 55, inactive: 18 },
-                      { active: 90, inactive: 36 },
-                      { active: 60, inactive: 23 }
+                      { active: 50, inactive: 21 },
+                      { active: 65, inactive: 33 },
+                      { active: 45, inactive: 25 },
+                      { active: 38, inactive: 18 },
+                      { active: 70, inactive: 36 },
+                      { active: 42, inactive: 23 }
                     ].map((bar, idx) => (
                       <div key={idx} className="relative flex-1 max-w-[40px] h-full flex flex-col justify-end items-center">
                         {/* Active Bar - grows on hover */}
                         <div 
-                          className={`chart-bar-active chart-bar-${idx} w-full rounded-full bg-gradient-to-t from-primary via-primary to-accent shadow-[0_0_20px_hsl(var(--primary)/0.4)] absolute bottom-0`}
+                          className={`chart-bar-active chart-bar-${idx} w-full rounded-full bg-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)] absolute bottom-0`}
                           style={{ 
                             animationDelay: `${idx * 100}ms`
                           }}
