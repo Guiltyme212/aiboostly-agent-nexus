@@ -1,4 +1,24 @@
-import { Chats, ChartLineUp, Robot, Plugs, EnvelopeSimple, Users, Database, VideoCamera } from "@phosphor-icons/react";
+import { EnvelopeSimple, Database } from "@phosphor-icons/react";
+
+// Tool Icon Components
+const GmailIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+);
+
+const AirtableIcon = () => (
+  <svg viewBox="0 0 54.75 45.776" fill="currentColor" className="w-5 h-5">
+    <path d="M 27.357 0 C 26.367 0 25.372 0.196 24.437 0.586 L 4.058 9.013 C 2.911 9.488 2.941 11.085 4.086 11.559 L 24.576 19.676 C 26.371 20.404 28.379 20.404 30.174 19.676 L 50.664 11.559 C 51.812 11.112 51.812 9.488 50.692 9.013 L 30.258 0.586 C 29.34 0.198 28.354 -0.001 27.357 0 Z M 53.381 13.893 C 53.207 13.894 53.035 13.929 52.875 13.995 L 30.035 22.84 C 29.512 23.054 29.17 23.562 29.168 24.127 L 29.168 44.421 C 29.172 44.872 29.399 45.291 29.773 45.543 C 30.147 45.795 30.622 45.846 31.041 45.68 L 53.883 36.806 C 54.408 36.611 54.754 36.108 54.75 35.549 L 54.75 15.255 C 54.745 14.502 54.134 13.895 53.381 13.895 Z M 1.542 13.982 C 1.133 13.967 0.736 14.124 0.447 14.415 C 0.196 14.668 0 14.974 0 15.339 L 0 34.399 C 0 35.407 1.175 36.08 2.071 35.631 L 16.375 28.773 L 17.075 28.438 L 23.848 25.162 C 24.911 24.66 24.829 23.091 23.709 22.671 L 2.014 14.08 C 1.865 14.017 1.704 13.983 1.542 13.98 Z"/>
+  </svg>
+);
+
+const ZoomIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M19 7h-8v6h8V7zm2-2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v0z"/>
+    <path d="M11 14l4.5-3L11 8v6z"/>
+  </svg>
+);
 
 const Features = () => {
   const features = [
@@ -9,9 +29,9 @@ const Features = () => {
       gradient: "from-[#d7cfcf] to-[#9198e5]",
       status: "Running Currently...",
       integrations: [
-        { name: "Gmail", subtitle: "Compose a mail", icon: "M" },
-        { name: "AirTable", subtitle: "Send mail to the users", icon: "📦" },
-        { name: "Zoom", subtitle: "Schedule the call", icon: "🎥" },
+        { name: "Gmail", subtitle: "Compose a mail", IconComponent: GmailIcon },
+        { name: "AirTable", subtitle: "Send mail to the users", IconComponent: AirtableIcon },
+        { name: "Zoom", subtitle: "Schedule the call", IconComponent: ZoomIcon },
       ],
     },
     {
@@ -76,8 +96,8 @@ const Features = () => {
                             ${idx === 1 ? 'group-hover:-translate-y-[calc(100%+0.75rem)]' : ''}
                             hover:scale-105`}
                         >
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-lg font-bold">
-                            {integration.icon}
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-white">
+                            <integration.IconComponent />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-white text-sm font-semibold">{integration.name}</p>
