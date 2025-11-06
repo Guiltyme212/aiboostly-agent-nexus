@@ -63,21 +63,30 @@ const Features = () => {
 
                 {/* Integration Cards */}
                 {feature.integrations && feature.integrations.length > 0 && (
-                  <div className="mt-6 space-y-3">
-                    {feature.integrations.map((integration, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-[#2a2a2a] rounded-xl p-3 flex items-center gap-3 hover:bg-[#333333] transition-all duration-300 hover:scale-105"
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-lg font-bold">
-                          {integration.icon}
+                  <div className="mt-6 relative">
+                    {/* Connecting Line */}
+                    <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/30 via-accent/30 to-primary/30 group-hover:from-primary/60 group-hover:via-accent/60 group-hover:to-primary/60 transition-all duration-500"></div>
+                    
+                    <div className="space-y-3 relative">
+                      {feature.integrations.map((integration, idx) => (
+                        <div
+                          key={idx}
+                          className={`bg-[#2a2a2a] rounded-xl p-3 flex items-center gap-3 hover:bg-[#333333] transition-all duration-500 relative z-10
+                            ${idx === 0 ? 'group-hover:translate-y-[84px]' : ''}
+                            ${idx === 1 ? 'group-hover:-translate-y-[84px]' : ''}
+                            hover:scale-105`}
+                          style={{ transitionDelay: `${idx * 50}ms` }}
+                        >
+                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-lg font-bold">
+                            {integration.icon}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-white text-sm font-semibold">{integration.name}</p>
+                            <p className="text-muted-foreground text-xs truncate">{integration.subtitle}</p>
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-semibold">{integration.name}</p>
-                          <p className="text-muted-foreground text-xs truncate">{integration.subtitle}</p>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
