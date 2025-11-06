@@ -112,7 +112,7 @@ const Features = () => {
 
                 {/* Animated Chart */}
                 {feature.hasChart && (
-                  <div className="mt-6 relative h-64 flex items-end justify-center gap-4 p-6 overflow-hidden">
+                  <div className="mt-6 relative h-64 flex items-end justify-center gap-3 p-6 overflow-hidden">
                     {/* Status Label */}
                     <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-500 group-hover:opacity-0">
                       <div className="w-3 h-3 rounded-full bg-muted-foreground/40"></div>
@@ -132,17 +132,17 @@ const Features = () => {
 
                     {/* Chart Bars */}
                     {[
-                      { active: 50, inactive: 21 },
-                      { active: 65, inactive: 33 },
-                      { active: 45, inactive: 25 },
-                      { active: 38, inactive: 18 },
-                      { active: 70, inactive: 36 },
-                      { active: 42, inactive: 23 }
+                      { active: 45, inactive: 21 },
+                      { active: 60, inactive: 28 },
+                      { active: 38, inactive: 19 },
+                      { active: 32, inactive: 15 },
+                      { active: 65, inactive: 32 },
+                      { active: 40, inactive: 20 }
                     ].map((bar, idx) => (
-                      <div key={idx} className="relative flex-1 max-w-[40px] h-full flex flex-col justify-end items-center">
+                      <div key={idx} className="relative flex-1 max-w-[24px] h-full flex flex-col justify-end items-center">
                         {/* Active Bar - grows on hover */}
                         <div 
-                          className={`chart-bar-active chart-bar-${idx} w-full rounded-full bg-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)] absolute bottom-0`}
+                          className={`chart-bar-active chart-bar-${idx} w-full rounded-full bg-primary shadow-[0_0_15px_hsl(var(--primary)/0.3)] absolute bottom-0`}
                           style={{ 
                             animationDelay: `${idx * 100}ms`
                           }}
