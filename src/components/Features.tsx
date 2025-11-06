@@ -36,25 +36,24 @@ const Features = () => {
     },
   ];
 
-  const getCardStyle = (index: number) => {
-    if (hoveredIndex === null) return {};
+  const isCardAnimating = (index: number): string => {
+    if (hoveredIndex === null) return '';
     
-    // For 2-column grid, calculate row and column
-    const row = Math.floor(index / 2);
-    const col = index % 2;
-    const hoveredRow = Math.floor(hoveredIndex / 2);
     const hoveredCol = hoveredIndex % 2;
+    const currentCol = index % 2;
+    const hoveredRow = Math.floor(hoveredIndex / 2);
+    const currentRow = Math.floor(index / 2);
     
-    // If in same column and adjacent rows
-    if (col === hoveredCol && Math.abs(row - hoveredRow) === 1) {
-      if (row < hoveredRow) {
-        return { animation: 'swapDown 0.6s ease-in-out forwards' };
-      } else {
-        return { animation: 'swapUp 0.6s ease-in-out forwards' };
-      }
-    }
+    // Only animate cards in the same column
+    if (hoveredCol !== currentCol) return '';
     
-    return {};
+    // Card directly below the hovered one
+    if (currentRow === hoveredRow + 1) return 'animate-swap-up';
+    
+    // Card directly above the hovered one
+    if (currentRow === hoveredRow - 1) return 'animate-swap-down';
+    
+    return '';
   };
 
   return (
@@ -70,29 +69,13 @@ const Features = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto relative">
           {features.map((feature, index) => (
-            <div 
+            <Card
               key={index}
-              className="relative"
-              style={getCardStyle(index)}
+              className={`glass-card p-8 transition-all duration-500 scroll-reveal cursor-pointer relative overflow-hidden group ${isCardAnimating(index)}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Connecting Line (appears between cards in same column) */}
-              {index < features.length - 2 && index % 2 === 0 && (
-                <div 
-                  className="hidden md:block absolute left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-primary/50 via-primary/30 to-transparent z-0"
-                  style={{
-                    top: '100%',
-                    height: '2rem',
-                    animation: hoveredIndex === index || hoveredIndex === index + 2 ? 'lineGrow 0.6s ease-out' : 'none'
-                  }}
-                ></div>
-              )}
-              
-              <Card
-                className="glass-card p-8 transition-all duration-500 scroll-reveal cursor-pointer relative overflow-hidden group"
-                style={{ animationDelay: `${index * 0.1}s` }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
                 {/* Animated border glow on hover */}
                 <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 via-accent/10 to-transparent blur-xl"></div>
@@ -123,8 +106,7 @@ const Features = () => {
                   {/* Hover indicator line */}
                   <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-accent to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </div>
-              </Card>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

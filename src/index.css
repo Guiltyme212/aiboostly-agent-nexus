@@ -153,32 +153,40 @@ All colors MUST be HSL.
 
   @keyframes swapUp {
     0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+      transform: translateY(0);
+      z-index: 1;
     }
     50% {
-      transform: translateY(-20%) scale(0.95);
-      opacity: 0.7;
+      transform: translateY(-50%) scale(0.98);
+      z-index: 10;
     }
     100% {
-      transform: translateY(-100%) scale(1);
-      opacity: 1;
+      transform: translateY(-105%);
+      z-index: 1;
     }
   }
 
   @keyframes swapDown {
     0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+      transform: translateY(0);
+      z-index: 1;
     }
     50% {
-      transform: translateY(20%) scale(0.95);
-      opacity: 0.7;
+      transform: translateY(50%) scale(0.98);
+      z-index: 10;
     }
     100% {
-      transform: translateY(100%) scale(1);
-      opacity: 1;
+      transform: translateY(105%);
+      z-index: 1;
     }
+  }
+
+  .animate-swap-up {
+    animation: swapUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-swap-down {
+    animation: swapDown 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @keyframes lineGrow {
