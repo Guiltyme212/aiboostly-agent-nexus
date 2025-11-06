@@ -43,6 +43,15 @@ const Features = () => {
       integrations: [],
       hasChart: true,
     },
+    {
+      title: "AI-Powered Chatbots",
+      description: "Enhance customer support with intelligent, 24/7 AI chatbots that handle queries instantly.",
+      icon: Database,
+      gradient: "from-[#9198e5] to-[#712020]",
+      status: "Active",
+      integrations: [],
+      hasChatbot: true,
+    },
   ];
 
   return (
@@ -154,6 +163,42 @@ const Features = () => {
                         ></div>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {/* AI Chatbot Demo */}
+                {feature.hasChatbot && (
+                  <div className="mt-6 relative h-64 flex flex-col justify-center px-6 py-4">
+                    {/* Customer Query Label */}
+                    <p className="text-muted-foreground text-sm italic mb-3">Customer Query</p>
+                    
+                    {/* Query Bubble */}
+                    <div className="bg-primary/90 text-white rounded-3xl px-5 py-3.5 max-w-[85%] mb-3">
+                      <p className="text-sm">What are your business hours?</p>
+                    </div>
+
+                    {/* Avatar and Response Container */}
+                    <div className="flex items-start gap-3 mb-2">
+                      {/* Avatar */}
+                      <div className="w-12 h-12 rounded-full bg-muted overflow-hidden flex-shrink-0">
+                        <img 
+                          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
+                          alt="AI Assistant"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      {/* Response - Hidden by default, shows on hover */}
+                      <div className="flex-1 opacity-0 scale-95 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-hover:delay-300">
+                        <div className="bg-[#2a2a2a] text-white rounded-3xl px-5 py-3.5 mb-2">
+                          <p className="text-sm">We are here for you 24/7, let me know how we can help you.</p>
+                        </div>
+                        <p className="text-muted-foreground text-xs italic text-right">Automated Response</p>
+                      </div>
+
+                      {/* Green Indicator - Shows on hover */}
+                      <div className="w-10 h-10 rounded-xl bg-primary/90 flex-shrink-0 opacity-0 scale-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-hover:delay-200"></div>
+                    </div>
                   </div>
                 )}
               </div>
