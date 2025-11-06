@@ -112,7 +112,7 @@ const Features = () => {
 
                 {/* Animated Chart */}
                 {feature.hasChart && (
-                  <div className="mt-6 relative h-64 flex items-end justify-center gap-3 p-6 overflow-hidden">
+                  <div className="mt-6 relative h-64 flex items-end justify-center gap-3 px-6 py-4 overflow-hidden">
                     {/* Status Label */}
                     <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-500 group-hover:opacity-0">
                       <div className="w-3 h-3 rounded-full bg-muted-foreground/40"></div>
