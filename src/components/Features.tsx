@@ -135,7 +135,7 @@ const Features = () => {
                     {/* Percentage Tooltip */}
                     <div className="absolute top-16 left-12 opacity-0 scale-90 transition-all duration-500 delay-[600ms] group-hover:opacity-100 group-hover:scale-100">
                       <div className="bg-background/90 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2.5 shadow-[0_0_20px_hsl(var(--primary)/0.3)]">
-                        <span className="text-2xl font-bold text-primary">87% +</span>
+                        <span className="text-2xl font-semibold text-primary">87% +</span>
                       </div>
                     </div>
 
