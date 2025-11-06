@@ -41,6 +41,7 @@ const Features = () => {
       gradient: "from-[#9198e5] to-[#712020]",
       status: "Active",
       integrations: [],
+      hasChart: true,
     },
   ];
 
@@ -106,6 +107,48 @@ const Features = () => {
                         </div>
                       ))}
                     </div>
+                  </div>
+                )}
+
+                {/* Animated Chart */}
+                {feature.hasChart && (
+                  <div className="mt-6 relative h-64 flex items-end justify-center gap-4 p-6 overflow-hidden">
+                    {/* Status Label */}
+                    <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-700 group-hover:opacity-0">
+                      <div className="w-3 h-3 rounded-full bg-muted-foreground/40"></div>
+                      <span className="text-sm text-muted-foreground">Before Helium</span>
+                    </div>
+                    <div className="absolute top-4 left-4 flex items-center gap-2 opacity-0 transition-all duration-700 group-hover:opacity-100">
+                      <div className="w-3 h-3 rounded-full bg-primary animate-pulse"></div>
+                      <span className="text-sm text-primary font-semibold">After Helium</span>
+                    </div>
+
+                    {/* Percentage Tooltip */}
+                    <div className="absolute top-16 left-12 opacity-0 scale-95 transition-all duration-700 delay-300 group-hover:opacity-100 group-hover:scale-100">
+                      <div className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-xl px-4 py-2 shadow-lg">
+                        <span className="text-2xl font-bold text-primary">87% +</span>
+                      </div>
+                    </div>
+
+                    {/* Chart Bars */}
+                    {[35, 55, 42, 30, 60, 38].map((height, idx) => (
+                      <div key={idx} className="relative flex-1 max-w-[40px] flex flex-col items-center gap-2">
+                        {/* Active Bar */}
+                        <div 
+                          className="w-full rounded-full bg-gradient-to-b from-primary to-accent transition-all duration-1000 ease-out origin-bottom chart-bar"
+                          style={{ 
+                            height: '0%',
+                            transitionDelay: `${idx * 100}ms`,
+                            ['--bar-height' as string]: `${height}%`
+                          } as React.CSSProperties}
+                        ></div>
+                        {/* Inactive Bar */}
+                        <div 
+                          className="w-full rounded-full bg-muted/30 transition-all duration-700"
+                          style={{ height: `${height * 0.6}%` }}
+                        ></div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

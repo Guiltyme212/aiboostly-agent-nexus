@@ -164,4 +164,9 @@ All colors MUST be HSL.
     filter: blur(0);
     transform: translateY(0);
   }
+
+  /* Chart bar animation */
+  .group:hover .chart-bar {
+    height: var(--bar-height) !important;
+  }
 }
