@@ -49,7 +49,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['harmonia-sans', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Clarika Pro', 'system-ui', '-apple-system', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
