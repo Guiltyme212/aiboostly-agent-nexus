@@ -168,6 +168,15 @@ All colors MUST be HSL.
     }
   }
 
+  @keyframes slideLeftRight {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-30px);
+    }
+  }
+
 
   .scroll-reveal {
     opacity: 0;

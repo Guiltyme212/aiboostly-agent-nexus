@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { ArrowRight } from "@phosphor-icons/react";
 import heroDashboard from "@/assets/hero-dashboard.jpg";
+import dashboardPreview from "@/assets/dashboard-preview.jpg";
 
 // Tool Icon Components
 const SlackIcon = () => (
@@ -268,22 +269,29 @@ const HowItWorks = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
 
-              {/* Dashboard Image Container */}
-              <div className="relative glass-card rounded-lg overflow-hidden border border-white/10">
+              {/* Dashboard Image Container with Sliding Animation */}
+              <div 
+                className="relative glass-card rounded-lg overflow-hidden border border-white/10"
+                style={{
+                  animation: "slideLeftRight 8s ease-in-out infinite"
+                }}
+              >
                 <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-medium z-10">
                   ● LIVE
                 </div>
                 <img
-                  src={heroDashboard}
+                  src={dashboardPreview}
                   alt="Dashboard Interface"
                   className="w-full h-48 object-cover"
                 />
               </div>
 
-              {/* Zapier Icon Bubble */}
+              {/* Zapier Icon Bubble with Glossy Effect */}
               <div 
-                className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
+                className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full flex items-center justify-center text-white"
                 style={{
+                  background: "linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 50%, rgba(20, 20, 20, 1) 100%)",
+                  boxShadow: "inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4)",
                   animation: "zoomPulse 3s ease-in-out infinite, float 6s ease-in-out infinite",
                   animationDelay: "0.5s, 0s"
                 }}
