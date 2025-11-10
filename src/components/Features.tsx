@@ -191,9 +191,9 @@ const Features = () => {
                           key={idx}
                           className="absolute w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm"
                           style={{
-                            background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.3) 0%, hsl(var(--primary) / 0.15) 40%, transparent 70%)',
-                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 20px hsl(var(--primary) / 0.3)',
-                            border: '1px solid hsl(var(--primary) / 0.4)',
+                            background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.5) 0%, hsl(var(--primary) / 0.35) 50%, hsl(var(--primary) / 0.25) 100%)',
+                            boxShadow: 'inset 0 2px 12px rgba(0, 0, 0, 0.5), inset 0 -2px 8px hsl(var(--primary) / 0.4), 0 4px 16px rgba(0, 0, 0, 0.4)',
+                            border: '1px solid hsl(var(--primary) / 0.3)',
                             animation: `orbit 20s linear infinite`,
                             animationDelay: `${-idx * (20 / feature.orbitIcons.length)}s`,
                           }}
