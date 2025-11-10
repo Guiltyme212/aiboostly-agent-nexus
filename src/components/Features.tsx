@@ -180,8 +180,8 @@ const Features = () => {
                 {feature.hasOrbit && feature.orbitIcons && (
                   <div className="mt-6 relative h-64 flex items-center justify-center overflow-hidden">
                     {/* Central icon */}
-                    <div className="absolute z-10 w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30">
-                      <Database size={32} weight="duotone" className="text-primary" />
+                    <div className="absolute z-10 w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30 shadow-lg">
+                      <Database size={40} weight="duotone" className="text-primary" />
                     </div>
                     
                     {/* Orbiting icons */}
@@ -189,13 +189,18 @@ const Features = () => {
                       return (
                         <div
                           key={idx}
-                          className="absolute w-12 h-12 bg-secondary/80 rounded-full flex items-center justify-center border border-border/40 backdrop-blur-sm"
+                          className="absolute w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm"
                           style={{
+                            background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.3) 0%, hsl(var(--primary) / 0.15) 40%, transparent 70%)',
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 20px hsl(var(--primary) / 0.3)',
+                            border: '1px solid hsl(var(--primary) / 0.4)',
                             animation: `orbit 20s linear infinite`,
                             animationDelay: `${-idx * (20 / feature.orbitIcons.length)}s`,
                           }}
                         >
-                          <IconComponent />
+                          <div className="scale-150">
+                            <IconComponent />
+                          </div>
                         </div>
                       );
                     })}
