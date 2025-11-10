@@ -35,6 +35,16 @@ const Features = () => {
       ],
     },
     {
+      title: "Custom AI Integrations",
+      description: "Seamlessly connect AI tools with your existing software—no technical setup required.",
+      icon: Database,
+      gradient: "from-[#16a34a] to-[#059669]",
+      status: "Active",
+      integrations: [],
+      hasOrbit: true,
+      orbitIcons: [GmailIcon, AirtableIcon, ZoomIcon, GmailIcon, AirtableIcon, ZoomIcon],
+    },
+    {
       title: "Data Intelligence",
       description: "Turn raw data into actionable insights with AI-powered analytics.",
       icon: Database,
@@ -163,6 +173,32 @@ const Features = () => {
                         ></div>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {/* Orbit Animation */}
+                {feature.hasOrbit && feature.orbitIcons && (
+                  <div className="mt-6 relative h-64 flex items-center justify-center overflow-hidden">
+                    {/* Central icon */}
+                    <div className="absolute z-10 w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30">
+                      <Database size={32} weight="duotone" className="text-primary" />
+                    </div>
+                    
+                    {/* Orbiting icons */}
+                    {feature.orbitIcons.map((IconComponent, idx) => {
+                      return (
+                        <div
+                          key={idx}
+                          className="absolute w-12 h-12 bg-secondary/80 rounded-full flex items-center justify-center border border-border/40 backdrop-blur-sm"
+                          style={{
+                            animation: `orbit 20s linear infinite`,
+                            animationDelay: `${-idx * (20 / feature.orbitIcons.length)}s`,
+                          }}
+                        >
+                          <IconComponent />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 
