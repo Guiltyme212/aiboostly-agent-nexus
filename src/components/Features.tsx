@@ -257,8 +257,8 @@ const Features = () => {
                   <div className="mt-6 relative h-80 px-6 py-4 overflow-hidden">
                     {/* Message Cards Container */}
                     <div className="space-y-3 relative">
-                      {/* Top Card - Active/Replying */}
-                      <div className="bg-primary/90 rounded-3xl p-4 flex gap-3 items-start shadow-lg transform transition-all duration-500 group-hover:scale-105">
+                      {/* Top Card - Swaps with middle on hover */}
+                      <div className="bg-primary/90 rounded-3xl p-4 flex gap-3 items-start shadow-lg transition-all duration-700 ease-out group-hover:translate-y-[calc(100%+0.75rem)]">
                         <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
                           <img 
                             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" 
@@ -279,8 +279,8 @@ const Features = () => {
                         </div>
                       </div>
 
-                      {/* Middle Card */}
-                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-500 group-hover:translate-x-2">
+                      {/* Middle Card - Swaps with top on hover */}
+                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-700 ease-out group-hover:-translate-y-[calc(100%+0.75rem)] relative">
                         <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
                           <img 
                             src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop" 
@@ -298,10 +298,13 @@ const Features = () => {
                         <div className="w-5 h-5 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
                           <EnvelopeSimple size={12} weight="fill" className="text-primary" />
                         </div>
+                        
+                        {/* Connecting Line - Shows between cards 1 and 2 */}
+                        <div className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-0.5 h-3 bg-gradient-to-b from-primary/30 to-primary/60 opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:h-6"></div>
                       </div>
 
                       {/* Bottom Card */}
-                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-500 group-hover:translate-x-2">
+                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-300">
                         <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
                           <img 
                             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
@@ -323,7 +326,7 @@ const Features = () => {
                     </div>
 
                     {/* Connecting Line and Box */}
-                    <div className="absolute top-12 -right-4 opacity-0 transition-all duration-700 group-hover:opacity-100">
+                    <div className="absolute top-16 -right-4 opacity-0 transition-all duration-700 group-hover:opacity-100">
                       <svg width="120" height="100" viewBox="0 0 120 100" className="overflow-visible">
                         <path
                           d="M 0 20 Q 60 20, 100 50"
