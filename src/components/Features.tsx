@@ -62,6 +62,15 @@ const Features = () => {
       integrations: [],
       hasChatbot: true,
     },
+    {
+      title: "Workflow Automation",
+      description: "Streamline repetitive tasks with AI-driven workflows that save time and boost efficiency.",
+      icon: Database,
+      gradient: "from-[#16a34a] to-[#059669]",
+      status: "Active",
+      integrations: [],
+      hasWorkflow: true,
+    },
   ];
 
   return (
@@ -239,6 +248,92 @@ const Features = () => {
 
                       {/* Green Indicator - Shows on hover */}
                       <div className="w-10 h-10 rounded-xl bg-primary/90 flex-shrink-0 opacity-0 scale-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100 group-hover:delay-200"></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Workflow Automation Demo */}
+                {feature.hasWorkflow && (
+                  <div className="mt-6 relative h-80 px-6 py-4 overflow-hidden">
+                    {/* Message Cards Container */}
+                    <div className="space-y-3 relative">
+                      {/* Top Card - Active/Replying */}
+                      <div className="bg-primary/90 rounded-3xl p-4 flex gap-3 items-start shadow-lg transform transition-all duration-500 group-hover:scale-105">
+                        <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" 
+                            alt="Emma"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="text-white font-medium text-sm">Emma, RetailSync</h4>
+                            <span className="text-white/70 text-xs">09:45 PM</span>
+                          </div>
+                          <p className="text-white/80 text-sm mb-2">"We're looking to automate inventory updates. Can you help?"</p>
+                          <p className="text-white/60 text-sm italic">Replying now...</p>
+                        </div>
+                        <div className="w-5 h-5 rounded-full bg-primary-foreground/20 flex items-center justify-center flex-shrink-0 mt-1">
+                          <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
+                        </div>
+                      </div>
+
+                      {/* Middle Card */}
+                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-500 group-hover:translate-x-2">
+                        <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop" 
+                            alt="Olivia"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="text-white font-medium text-sm">Olivia, GreenTech Solutions</h4>
+                            <span className="text-muted-foreground text-xs">02:45 AM</span>
+                          </div>
+                          <p className="text-muted-foreground text-sm">"Looking for AI automation to streamline customer inquiries. Can we discuss?"</p>
+                        </div>
+                        <div className="w-5 h-5 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                          <EnvelopeSimple size={12} weight="fill" className="text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Bottom Card */}
+                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-500 group-hover:translate-x-2">
+                        <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
+                            alt="Liam"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="text-white font-medium text-sm">Liam, FinEdge Analytics</h4>
+                            <span className="text-muted-foreground text-xs">12:45 AM</span>
+                          </div>
+                          <p className="text-muted-foreground text-sm">"How does your AI handle financial data processing?"</p>
+                        </div>
+                        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                          <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Connecting Line and Box */}
+                    <div className="absolute top-12 -right-4 opacity-0 transition-all duration-700 group-hover:opacity-100">
+                      <svg width="120" height="100" viewBox="0 0 120 100" className="overflow-visible">
+                        <path
+                          d="M 0 20 Q 60 20, 100 50"
+                          stroke="hsl(var(--primary))"
+                          strokeWidth="2"
+                          fill="none"
+                          className="opacity-60"
+                        />
+                      </svg>
+                      <div className="absolute top-8 right-0 w-12 h-12 rounded-xl bg-primary/90 shadow-lg"></div>
                     </div>
                   </div>
                 )}
