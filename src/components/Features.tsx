@@ -326,17 +326,26 @@ const Features = () => {
                     </div>
 
                     {/* Connecting Line and Box */}
-                    <div className="absolute top-16 -right-4 opacity-0 transition-all duration-700 group-hover:opacity-100">
-                      <svg width="120" height="100" viewBox="0 0 120 100" className="overflow-visible">
+                    <div className="absolute top-8 -right-8 w-32 h-24 opacity-0 transition-all duration-700 group-hover:opacity-100 pointer-events-none">
+                      {/* Curved Line */}
+                      <svg 
+                        width="128" 
+                        height="96" 
+                        viewBox="0 0 128 96" 
+                        className="absolute top-0 left-0"
+                        preserveAspectRatio="none"
+                      >
                         <path
-                          d="M 0 20 Q 60 20, 100 50"
+                          d="M 0,48 Q 32,48 64,24 T 96,24"
                           stroke="hsl(var(--primary))"
                           strokeWidth="2"
                           fill="none"
-                          className="opacity-60"
+                          opacity="0.7"
                         />
                       </svg>
-                      <div className="absolute top-8 right-0 w-12 h-12 rounded-xl bg-primary/90 shadow-lg"></div>
+                      
+                      {/* Green Square */}
+                      <div className="absolute top-4 right-2 w-12 h-12 rounded-xl bg-primary/90 shadow-[0_0_20px_hsl(var(--primary)/0.4)]"></div>
                     </div>
                   </div>
                 )}
