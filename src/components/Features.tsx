@@ -192,7 +192,7 @@ const Features = () => {
                           className="absolute w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm"
                           style={{
                             background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.5) 0%, hsl(var(--primary) / 0.35) 50%, hsl(var(--primary) / 0.25) 100%)',
-                            boxShadow: 'inset 0 2px 12px rgba(0, 0, 0, 0.5), inset 0 -2px 8px hsl(var(--primary) / 0.4), 0 4px 16px rgba(0, 0, 0, 0.4)',
+                            boxShadow: 'inset 0 2px 12px rgba(0, 0, 0, 0.5), inset 0 -2px 8px hsl(var(--primary) / 0.4), 0 4px 16px rgba(0, 0, 0, 0.4), -6px 6px 12px rgba(0, 0, 0, 0.7)',
                             border: '1px solid hsl(var(--primary) / 0.3)',
                             animation: `orbit 20s linear infinite`,
                             animationDelay: `${-idx * (20 / feature.orbitIcons.length)}s`,
