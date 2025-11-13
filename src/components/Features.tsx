@@ -254,10 +254,10 @@ const Features = () => {
 
                 {/* Workflow Automation Demo */}
                 {feature.hasWorkflow && (
-                  <div className="mt-6 relative h-96 py-4 overflow-visible">
+                  <div className="mt-6 relative h-80 py-4">
                     {/* Message Cards Container */}
-                    <div className="space-y-3 relative max-w-[85%]">
-                      {/* Top Card - No swap animation */}
+                    <div className="space-y-3 relative">
+                      {/* Top Card - Emma (Green) */}
                       <div 
                         className="rounded-3xl p-4 flex gap-3 items-start shadow-lg transition-all duration-300"
                         style={{
@@ -285,29 +285,8 @@ const Features = () => {
                         </div>
                       </div>
 
-                      {/* Middle Card (Emma) - Swaps with bottom on hover */}
-                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-700 ease-out group-hover:translate-y-[calc(100%+0.75rem)] relative">
-                        <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
-                          <img 
-                            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop" 
-                            alt="Olivia"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between mb-2">
-                            <h4 className="text-white font-medium text-sm">Olivia, GreenTech Solutions</h4>
-                            <span className="text-muted-foreground text-xs">02:45 AM</span>
-                          </div>
-                          <p className="text-muted-foreground text-sm">"Looking for AI automation to streamline customer inquiries. Can we discuss?"</p>
-                        </div>
-                        <div className="w-5 h-5 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
-                          <EnvelopeSimple size={12} weight="fill" className="text-primary" />
-                        </div>
-                      </div>
-
-                      {/* Bottom Card (Liam) - Swaps with middle on hover */}
-                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-700 ease-out group-hover:-translate-y-[calc(100%+0.75rem)]">
+                      {/* Middle Card - Liam */}
+                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-300">
                         <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
                           <img 
                             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
@@ -326,29 +305,27 @@ const Features = () => {
                           <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Connecting Line and Box - positioned from container edge */}
-                    <div className="absolute top-24 right-6 opacity-0 transition-all duration-700 group-hover:opacity-100 pointer-events-none">
-                      {/* Curved Line from middle card to green box */}
-                      <svg 
-                        width="140" 
-                        height="100" 
-                        viewBox="0 0 140 100" 
-                        className="absolute top-0 -left-32"
-                        style={{ overflow: 'visible' }}
-                      >
-                        <path
-                          d="M 0,50 Q 40,50 70,35 Q 100,20 130,30"
-                          stroke="hsl(var(--primary))"
-                          strokeWidth="2"
-                          fill="none"
-                          opacity="0.8"
-                        />
-                      </svg>
-                      
-                      {/* Green Square */}
-                      <div className="w-12 h-12 rounded-xl bg-primary/90 shadow-[0_0_20px_hsl(var(--primary)/0.5)]"></div>
+                      {/* Bottom Card - Olivia */}
+                      <div className="bg-[#2a2a2a] rounded-3xl p-4 flex gap-3 items-start shadow-md transition-all duration-300">
+                        <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
+                          <img 
+                            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop" 
+                            alt="Olivia"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="text-white font-medium text-sm">Olivia, GreenTech Solutions</h4>
+                            <span className="text-muted-foreground text-xs">02:45 AM</span>
+                          </div>
+                          <p className="text-muted-foreground text-sm">"Looking for AI automation to streamline customer inquiries. Can we discuss?"</p>
+                        </div>
+                        <div className="w-5 h-5 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                          <EnvelopeSimple size={12} weight="fill" className="text-primary" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
