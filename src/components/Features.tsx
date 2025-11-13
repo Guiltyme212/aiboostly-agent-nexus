@@ -254,11 +254,17 @@ const Features = () => {
 
                 {/* Workflow Automation Demo */}
                 {feature.hasWorkflow && (
-                  <div className="mt-6 relative h-80 px-6 py-4 overflow-hidden">
+                  <div className="mt-6 relative h-96 px-6 py-4 overflow-visible">
                     {/* Message Cards Container */}
-                    <div className="space-y-3 relative">
+                    <div className="space-y-3 relative pr-20">
                       {/* Top Card - Swaps with middle on hover */}
-                      <div className="bg-primary/90 rounded-3xl p-4 flex gap-3 items-start shadow-lg transition-all duration-700 ease-out group-hover:translate-y-[calc(100%+0.75rem)]">
+                      <div 
+                        className="rounded-3xl p-4 flex gap-3 items-start shadow-lg transition-all duration-700 ease-out group-hover:translate-y-[calc(100%+0.75rem)]"
+                        style={{
+                          background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.85) 50%, hsl(var(--primary) / 0.8) 100%)',
+                          boxShadow: 'inset 8px -8px 20px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3)',
+                        }}
+                      >
                         <div className="w-12 h-12 rounded-2xl overflow-hidden flex-shrink-0">
                           <img 
                             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" 
@@ -323,17 +329,17 @@ const Features = () => {
                     </div>
 
                     {/* Connecting Line and Box - from middle card */}
-                    <div className="absolute top-32 right-0 w-40 h-20 opacity-0 transition-all duration-700 group-hover:opacity-100 pointer-events-none overflow-visible">
+                    <div className="absolute top-32 -right-16 w-48 h-20 opacity-0 transition-all duration-700 group-hover:opacity-100 pointer-events-none">
                       {/* Curved Line from middle card to green box */}
                       <svg 
-                        width="160" 
+                        width="180" 
                         height="80" 
-                        viewBox="0 0 160 80" 
-                        className="absolute -top-8 -left-6"
+                        viewBox="0 0 180 80" 
+                        className="absolute -top-8 left-0"
                         style={{ overflow: 'visible' }}
                       >
                         <path
-                          d="M 0,40 Q 50,40 80,20 Q 110,0 140,10"
+                          d="M 0,40 Q 60,40 90,20 Q 120,5 160,12"
                           stroke="hsl(var(--primary))"
                           strokeWidth="2"
                           fill="none"
