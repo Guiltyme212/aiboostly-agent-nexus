@@ -298,9 +298,6 @@ const Features = () => {
                         <div className="w-5 h-5 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
                           <EnvelopeSimple size={12} weight="fill" className="text-primary" />
                         </div>
-                        
-                        {/* Connecting Line - Shows between cards 1 and 2 */}
-                        <div className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-0.5 h-3 bg-gradient-to-b from-primary/30 to-primary/60 opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:h-6"></div>
                       </div>
 
                       {/* Bottom Card */}
@@ -325,27 +322,27 @@ const Features = () => {
                       </div>
                     </div>
 
-                    {/* Connecting Line and Box */}
-                    <div className="absolute top-8 -right-8 w-32 h-24 opacity-0 transition-all duration-700 group-hover:opacity-100 pointer-events-none">
-                      {/* Curved Line */}
+                    {/* Connecting Line and Box - from middle card */}
+                    <div className="absolute top-32 right-0 w-40 h-20 opacity-0 transition-all duration-700 group-hover:opacity-100 pointer-events-none overflow-visible">
+                      {/* Curved Line from middle card to green box */}
                       <svg 
-                        width="128" 
-                        height="96" 
-                        viewBox="0 0 128 96" 
-                        className="absolute top-0 left-0"
-                        preserveAspectRatio="none"
+                        width="160" 
+                        height="80" 
+                        viewBox="0 0 160 80" 
+                        className="absolute -top-8 -left-6"
+                        style={{ overflow: 'visible' }}
                       >
                         <path
-                          d="M 0,48 Q 32,48 64,24 T 96,24"
+                          d="M 0,40 Q 50,40 80,20 Q 110,0 140,10"
                           stroke="hsl(var(--primary))"
                           strokeWidth="2"
                           fill="none"
-                          opacity="0.7"
+                          opacity="0.8"
                         />
                       </svg>
                       
                       {/* Green Square */}
-                      <div className="absolute top-4 right-2 w-12 h-12 rounded-xl bg-primary/90 shadow-[0_0_20px_hsl(var(--primary)/0.4)]"></div>
+                      <div className="absolute top-0 right-0 w-12 h-12 rounded-xl bg-primary/90 shadow-[0_0_20px_hsl(var(--primary)/0.5)]"></div>
                     </div>
                   </div>
                 )}
