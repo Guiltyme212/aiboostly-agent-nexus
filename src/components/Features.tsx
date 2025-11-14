@@ -112,7 +112,10 @@ const Features = () => {
 
                 {/* Integration Cards */}
                 {feature.integrations && feature.integrations.length > 0 && (
-                  <div className="mt-6 relative">
+                  <div className="mt-6 relative overflow-hidden rounded-2xl">
+                    {/* Gradient Bubble - Top Left */}
+                    <div className="absolute top-0 left-0 w-48 h-48 bg-primary/20 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3"></div>
+                    
                     {/* Connecting Line - Centered */}
                     <div className="absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-primary/30 via-accent/30 to-primary/30 group-hover:from-primary/60 group-hover:via-accent/60 group-hover:to-primary/60 transition-all duration-700"></div>
                     
@@ -140,13 +143,16 @@ const Features = () => {
 
                 {/* Animated Chart */}
                 {feature.hasChart && (
-                  <div className="mt-6 relative h-64 flex items-end justify-center gap-3 px-6 py-4 overflow-hidden">
+                  <div className="mt-6 relative h-64 flex items-end justify-center gap-3 px-6 py-4 overflow-hidden rounded-2xl">
+                    {/* Gradient Bubble - Bottom Right */}
+                    <div className="absolute bottom-0 right-0 w-56 h-56 bg-primary/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+                    
                     {/* Status Label */}
-                    <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-500 group-hover:opacity-0">
+                    <div className="absolute top-4 left-4 flex items-center gap-2 transition-all duration-500 group-hover:opacity-0 z-10">
                       <div className="w-3 h-3 rounded-full bg-muted-foreground/40"></div>
                       <span className="text-sm text-muted-foreground">Before Helium</span>
                     </div>
-                    <div className="absolute top-4 left-4 flex items-center gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                    <div className="absolute top-4 left-4 flex items-center gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100 z-10">
                       <div className="w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_hsl(var(--primary))] animate-pulse"></div>
                       <span className="text-sm text-primary font-semibold">After Helium</span>
                     </div>
@@ -187,7 +193,10 @@ const Features = () => {
 
                 {/* Orbit Animation */}
                 {feature.hasOrbit && feature.orbitIcons && (
-                  <div className="mt-6 relative h-64 flex items-center justify-center overflow-hidden">
+                  <div className="mt-6 relative h-64 flex items-center justify-center overflow-hidden rounded-2xl">
+                    {/* Gradient Bubble - Bottom Left */}
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/25 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+                    
                     {/* Central icon */}
                     <div className="absolute z-10 w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30 shadow-lg">
                       <Database size={40} weight="duotone" className="text-primary" />
@@ -218,9 +227,12 @@ const Features = () => {
 
                 {/* AI Chatbot Demo */}
                 {feature.hasChatbot && (
-                  <div className="mt-6 relative h-64 flex flex-col justify-center px-6 py-4">
+                  <div className="mt-6 relative h-64 flex flex-col justify-center px-6 py-4 overflow-hidden rounded-2xl">
+                    {/* Gradient Bubble - Top Right */}
+                    <div className="absolute top-0 right-0 w-52 h-52 bg-primary/20 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3"></div>
+                    
                     {/* Customer Query Label */}
-                    <p className="text-muted-foreground text-sm italic mb-3 transition-all duration-500 group-hover:-translate-y-3">Customer Query</p>
+                    <p className="text-muted-foreground text-sm italic mb-3 transition-all duration-500 group-hover:-translate-y-3 relative z-10">Customer Query</p>
                     
                     {/* Query Bubble */}
                     <div className="bg-primary/90 text-white rounded-3xl px-5 py-3.5 max-w-[85%] mb-3 transition-all duration-500 group-hover:-translate-y-3">
@@ -254,7 +266,10 @@ const Features = () => {
 
                 {/* Workflow Automation Demo */}
                 {feature.hasWorkflow && (
-                  <div className="mt-6 relative h-80 py-4">
+                  <div className="mt-6 relative h-80 py-4 overflow-hidden rounded-2xl">
+                    {/* Gradient Bubble - Top Left */}
+                    <div className="absolute top-0 left-0 w-56 h-56 bg-primary/25 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+                    
                     {/* Message Cards Container */}
                     <div className="space-y-3 relative">
                       {/* Top Card - Emma (Green) */}
