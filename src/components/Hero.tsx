@@ -19,11 +19,11 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20 opacity-20"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20 opacity-30"></div>
       
       {/* Mouse-following gradient spot */}
       <div 
-        className="absolute w-[600px] h-[600px] bg-primary/30 rounded-full blur-3xl transition-all duration-700 ease-out pointer-events-none"
+        className="absolute w-[600px] h-[600px] bg-primary/40 rounded-full blur-3xl transition-all duration-700 ease-out pointer-events-none"
         style={{
           left: `${mousePosition.x}%`,
           top: `${mousePosition.y}%`,
