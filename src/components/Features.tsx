@@ -27,7 +27,6 @@ const Features = () => {
       description: "Automate lead sourcing, email follow-ups, and engagement to grow your business effortlessly.",
       icon: EnvelopeSimple,
       gradient: "from-[#d7cfcf] to-[#9198e5]",
-      status: "Running Currently...",
       integrations: [
         { name: "Gmail", subtitle: "Compose a mail", IconComponent: GmailIcon },
         { name: "AirTable", subtitle: "Send mail to the users", IconComponent: AirtableIcon },
@@ -35,22 +34,10 @@ const Features = () => {
       ],
     },
     {
-      title: "Custom AI Integrations",
-      description: "Seamlessly connect AI tools with your existing software—no technical setup required.",
-      icon: Database,
-      gradient: "from-[#16a34a] to-[#059669]",
-      status: "Active",
-      integrations: [],
-      hasOrbit: true,
-      orbitIcons: [GmailIcon, AirtableIcon, ZoomIcon, GmailIcon, AirtableIcon, ZoomIcon],
-    },
-    {
-      title: "Data Intelligence",
+      title: "Data Processing & Insights",
       description: "Turn raw data into actionable insights with AI-powered analytics.",
       icon: Database,
       gradient: "from-[#9198e5] to-[#712020]",
-      status: "Active",
-      integrations: [],
       hasChart: true,
     },
     {
@@ -58,8 +45,6 @@ const Features = () => {
       description: "Enhance customer support with intelligent, 24/7 AI chatbots that handle queries instantly.",
       icon: Database,
       gradient: "from-[#9198e5] to-[#712020]",
-      status: "Active",
-      integrations: [],
       hasChatbot: true,
     },
     {
@@ -67,9 +52,15 @@ const Features = () => {
       description: "Streamline repetitive tasks with AI-driven workflows that save time and boost efficiency.",
       icon: Database,
       gradient: "from-[#16a34a] to-[#059669]",
-      status: "Active",
-      integrations: [],
       hasWorkflow: true,
+    },
+    {
+      title: "Custom AI Integrations",
+      description: "Seamlessly connect AI tools with your existing software—no technical setup required.",
+      icon: Database,
+      gradient: "from-[#16a34a] to-[#059669]",
+      hasOrbit: true,
+      orbitIcons: [GmailIcon, AirtableIcon, ZoomIcon, GmailIcon, AirtableIcon, ZoomIcon],
     },
   ];
 
@@ -79,12 +70,10 @@ const Features = () => {
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16 scroll-reveal">
-          <p className="text-primary text-sm uppercase tracking-widest mb-3 font-medium">SERVICES</p>
           <h2 className="text-5xl md:text-6xl mb-4">What We Offer</h2>
-          <p className="text-muted-foreground text-base leading-relaxed">Comprehensive AI automation services tailored to your business</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -92,22 +81,14 @@ const Features = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Main Feature Card */}
-              <div className="bg-[#1a1a1a] rounded-3xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-500 group cursor-pointer hover:scale-[1.02] relative overflow-hidden">
-                {/* Gradient Bubble - positioned differently for each card */}
-                {index === 0 && <div className="absolute top-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>}
-                {index === 1 && <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none"></div>}
-                {index === 2 && <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>}
-                {index === 3 && <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>}
-                {index === 4 && <div className="absolute top-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>}
+              <div className="bg-gradient-to-br from-[#0d0d0d] to-[#1a1a1a] rounded-3xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-500 group cursor-pointer hover:scale-[1.02] relative overflow-hidden h-full shadow-[0_0_40px_rgba(0,255,128,0.1)]">
+                {/* Uniform Gradient Bubble */}
+                <div className="absolute top-0 left-0 w-64 h-64 bg-primary/15 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                 
-                <div className="flex items-start justify-between mb-6 relative z-10" style={{ marginTop: '12px' }}>
+                <div className="flex items-start mb-6 relative z-10">
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
                     <feature.icon size={28} weight="duotone" className="text-white" />
                   </div>
-                  
-                  <span className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                    {feature.status}
-                  </span>
                 </div>
 
                 <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300 relative z-10">
