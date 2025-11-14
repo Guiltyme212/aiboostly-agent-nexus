@@ -69,11 +69,11 @@ const Features = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 scroll-reveal">
+        <div className="text-center mb-12 scroll-reveal">
           <h2 className="text-5xl md:text-6xl mb-4">What We Offer</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto items-start">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -81,9 +81,13 @@ const Features = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Main Feature Card */}
-              <div className="bg-gradient-to-br from-[#0d0d0d] to-[#1a1a1a] rounded-3xl p-8 border border-white/5 hover:border-primary/20 transition-all duration-500 group cursor-pointer hover:scale-[1.02] relative overflow-hidden h-full shadow-[0_0_40px_rgba(0,255,128,0.1)]">
-                {/* Uniform Gradient Bubble */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-primary/15 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+              <div 
+                className="rounded-3xl p-6 border border-white/5 hover:border-primary/20 transition-all duration-500 group cursor-pointer hover:scale-[1.02] relative overflow-hidden h-full"
+                style={{
+                  background: 'linear-gradient(180deg, #0D0F0E 0%, #121513 100%)',
+                  boxShadow: 'inset 0 0 12px rgba(0,255,150,0.08), 0 0 24px rgba(0,255,150,0.05)'
+                }}
+              >
                 
                 <div className="flex items-start mb-6 relative z-10">
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
@@ -91,10 +95,10 @@ const Features = () => {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300 relative z-10">
+                <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300 relative z-10" style={{ lineHeight: '1.3' }}>
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground font-normal relative z-10" style={{ lineHeight: '1.6' }}>
+                <p className="text-muted-foreground font-normal relative z-10 text-sm" style={{ lineHeight: '1.6' }}>
                   {feature.description}
                 </p>
 
