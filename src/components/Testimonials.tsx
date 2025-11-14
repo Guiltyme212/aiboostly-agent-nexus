@@ -38,7 +38,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
-              className="glass-card p-8 hover:scale-105 transition-transform duration-300 scroll-reveal"
+              className="glass-card p-8 hover:scale-105 transition-transform duration-300 scroll-reveal rounded-3xl border border-white/10"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex gap-1 mb-4">
@@ -46,7 +46,7 @@ const Testimonials = () => {
                   <Star key={i} size={16} weight="fill" className="text-primary" />
                 ))}
               </div>
-              <p className="text-foreground mb-6 leading-relaxed">"{testimonial.quote}"</p>
+              <p className="text-foreground mb-6 leading-relaxed text-[17px] font-normal">"{testimonial.quote}"</p>
               <div className="flex items-center gap-3 mb-4">
                 <img
                   src={testimonial.image}
@@ -54,7 +54,7 @@ const Testimonials = () => {
                   className="w-12 h-12 rounded-full border-2 border-primary/30"
                 />
                 <div>
-                  <p className="font-medium text-foreground">{testimonial.author}</p>
+                  <p className="font-medium text-foreground text-[15px]">{testimonial.author}</p>
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                 </div>
               </div>

@@ -29,18 +29,18 @@ const Footer = () => {
               </div>
               <span className="text-xl font-medium">AiBoostly</span>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs tracking-tight">
               Custom AI agents and automation solutions that remove repetitive work from your business.
             </p>
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-4 mt-6 items-center">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <LinkedinLogo size={24} weight="light" />
+                <LinkedinLogo size={20} weight="fill" />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <TwitterLogo size={24} weight="light" />
+                <TwitterLogo size={20} weight="fill" />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <GithubLogo size={24} weight="light" />
+                <GithubLogo size={20} weight="fill" />
               </a>
             </div>
           </div>
