@@ -100,7 +100,7 @@ const Features = () => {
                 {index === 3 && <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>}
                 {index === 4 && <div className="absolute top-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>}
                 
-                <div className="flex items-start justify-between mb-6 relative z-10">
+                <div className="flex items-start justify-between mb-6 relative z-10" style={{ marginTop: '12px' }}>
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
                     <feature.icon size={28} weight="duotone" className="text-white" />
                   </div>
@@ -110,10 +110,10 @@ const Features = () => {
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-medium mb-3 text-white group-hover:text-primary transition-colors duration-300 relative z-10">
+                <h3 className="text-2xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300 relative z-10">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed relative z-10">
+                <p className="text-muted-foreground font-normal relative z-10" style={{ lineHeight: '1.6' }}>
                   {feature.description}
                 </p>
 

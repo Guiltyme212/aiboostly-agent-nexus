@@ -43,12 +43,12 @@ const FAQ = () => {
         </div>
 
         <div className="max-w-3xl mx-auto scroll-reveal">
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-6">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="glass-card px-6 border-none"
+                className="glass-card px-6 py-6 border-none hover:bg-card/50 transition-colors duration-300"
               >
                 <AccordionTrigger className="text-left text-lg font-medium hover:text-primary">
                   {faq.question}
