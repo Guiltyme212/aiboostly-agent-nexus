@@ -1,36 +1,67 @@
 import { Button } from "@/components/ui/button";
 import { Sparkle } from "@phosphor-icons/react";
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const blobRef = useRef<HTMLDivElement>(null);
+  const mousePosRef = useRef({ x: 0, y: 0 });
+  const currentPosRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth) * 100;
       const y = (e.clientY / window.innerHeight) * 100;
-      setMousePosition({ x, y });
+      mousePosRef.current = { x, y };
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+    let animationFrameId: number;
+
+    const animate = () => {
+      // Lerp factor (0.1 gives a nice smooth delay)
+      const ease = 0.1;
+
+      const targetX = mousePosRef.current.x;
+      const targetY = mousePosRef.current.y;
+
+      const currentX = currentPosRef.current.x;
+      const currentY = currentPosRef.current.y;
+
+      // Interpolate
+      const newX = currentX + (targetX - currentX) * ease;
+      const newY = currentY + (targetY - currentY) * ease;
+
+      currentPosRef.current = { x: newX, y: newY };
+
+      if (blobRef.current) {
+        blobRef.current.style.left = `${newX}%`;
+        blobRef.current.style.top = `${newY}%`;
+        blobRef.current.style.transform = 'translate(-50%, -50%)';
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20 opacity-30"></div>
-      
+
       {/* Mouse-following gradient spot */}
-      <div 
-        className="absolute w-[600px] h-[600px] bg-primary/40 rounded-full blur-3xl transition-all duration-700 ease-out pointer-events-none"
-        style={{
-          left: `${mousePosition.x}%`,
-          top: `${mousePosition.y}%`,
-          transform: 'translate(-50%, -50%)',
-        }}
+      <div
+        ref={blobRef}
+        className="absolute w-[600px] h-[600px] bg-primary/40 rounded-full blur-3xl pointer-events-none"
       ></div>
-      
+
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -73,10 +104,10 @@ const Hero = () => {
               className="px-8 py-6 rounded-full text-base font-medium bg-secondary/50 backdrop-blur border-white/10 hover:bg-secondary/70"
             >
               Our Services
-          </Button>
-        </div>
+            </Button>
+          </div>
 
-        {/* Trusted By */}
+          {/* Trusted By */}
           <p className="text-sm text-muted-foreground mt-16 opacity-70">
             Trusted by 150+ startups & teams
           </p>
