@@ -8,7 +8,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "checkin": "git pull origin main",
+    "checkout": "git add . && git commit -m \"Auto-sync changes\" && git push origin main"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
