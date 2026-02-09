@@ -108,7 +108,7 @@ const Hero = () => {
 
             {/* Trusted By */}
             <p className="text-sm text-muted-foreground opacity-70">
-              Trusted by 150+ startups & teams
+              Helped 50+ businesses save time and increase revenue
             </p>
           </div>
 
