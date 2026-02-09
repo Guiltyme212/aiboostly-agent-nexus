@@ -1,13 +1,15 @@
-import { Card } from "@/components/ui/card";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "@phosphor-icons/react";
 
 const Pricing = () => {
+  const [isYearly, setIsYearly] = useState(false);
+
   const plans = [
     {
-      name: "Starter",
+      name: "STARTER",
       price: "$2,499",
-      period: "one-time",
+      period: "ONE-TIME",
       description: "Perfect for small teams getting started with automation",
       features: [
         "1 AI agent",
@@ -19,9 +21,9 @@ const Pricing = () => {
       recommended: false,
     },
     {
-      name: "Pro",
+      name: "PRO",
       price: "$5,999",
-      period: "one-time",
+      period: "ONE-TIME",
       description: "Most popular for growing businesses",
       features: [
         "3 AI agents",
@@ -34,9 +36,9 @@ const Pricing = () => {
       recommended: true,
     },
     {
-      name: "Enterprise",
+      name: "ENTERPRISE",
       price: "Custom",
-      period: "pricing",
+      period: "PRICING",
       description: "For teams that need everything",
       features: [
         "Unlimited AI agents",
@@ -53,54 +55,130 @@ const Pricing = () => {
   return (
     <section id="pricing" className="py-24">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-5xl md:text-6xl mb-4">Pricing</h2>
-          <p className="text-muted-foreground text-base leading-relaxed">Choose the plan that fits your needs</p>
+        {/* Header */}
+        <div className="mb-12 scroll-reveal">
+          <span className="text-primary text-sm font-medium tracking-widest uppercase mb-4 block">
+            PRICINGS
+          </span>
+          <h2 className="text-5xl md:text-6xl font-light tracking-tight">
+            Our Subscriptions
+          </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan, index) => (
-            <Card
-              key={index}
-              className={`glass-card p-8 relative hover:scale-105 transition-all duration-300 scroll-reveal ${
-                plan.recommended ? "border-2 border-primary" : ""
+        {/* Toggle */}
+        <div className="mb-16 scroll-reveal">
+          <div className="inline-flex items-center bg-secondary/30 rounded-full p-1.5">
+            <button
+              onClick={() => setIsYearly(false)}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                !isYearly
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setIsYearly(true)}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                isYearly
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Yearly
+            </button>
+          </div>
+        </div>
+
+        {/* Cards */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl">
+          {plans.map((plan, index) => (
+            <div
+              key={index}
+              className="pricing-card relative rounded-2xl p-8 scroll-reveal"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              {/* Most Popular Badge */}
               {plan.recommended && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
-                  Recommended
+                <div className="absolute top-6 right-6">
+                  <span className="bg-secondary/80 backdrop-blur text-foreground text-xs font-medium px-4 py-2 rounded-full border border-white/10">
+                    Most Popular
+                  </span>
                 </div>
               )}
 
+              {/* 3D Sphere Icon */}
               <div className="mb-8">
-                <h3 className="text-2xl font-medium mb-2">{plan.name}</h3>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-5xl">{plan.price}</span>
-                  <span className="text-muted-foreground text-sm">/ {plan.period}</span>
+                <div className="pricing-sphere w-16 h-16 relative">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-lg" />
+                  <div className="absolute inset-1 rounded-full bg-gradient-to-br from-primary/80 to-transparent opacity-60" />
+                  <div className="absolute top-2 left-3 w-3 h-3 rounded-full bg-white/30 blur-[1px]" />
+                  {plan.recommended && (
+                    <>
+                      <div className="absolute -right-2 top-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
+                      <div className="absolute -right-4 top-1/3 w-5 h-5 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
+                    </>
+                  )}
+                  {index === 2 && (
+                    <>
+                      <div className="absolute -right-3 top-0 w-7 h-7 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
+                      <div className="absolute right-2 -top-3 w-5 h-5 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
+                      <div className="absolute -right-1 top-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
+                    </>
+                  )}
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{plan.description}</p>
               </div>
 
-              <ul className="space-y-4 mb-8">
-                {plan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <Check size={20} weight="bold" className="text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Plan Name */}
+              <h3 className="text-xl font-semibold tracking-wide mb-3">
+                {plan.name}
+              </h3>
 
+              {/* Description */}
+              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                {plan.description}
+              </p>
+
+              {/* Divider */}
+              <div className="h-px bg-white/10 mb-8" />
+
+              {/* Price */}
+              <div className="mb-8">
+                <span className="text-5xl font-light tracking-tight">
+                  {plan.price}
+                </span>
+                <p className="text-muted-foreground text-xs tracking-wider mt-2 uppercase">
+                  {plan.period}
+                </p>
+              </div>
+
+              {/* CTA Button */}
               <Button
-                className={`w-full py-6 rounded-full font-medium ${
-                  plan.recommended
-                    ? "neumorphic-button"
-                    : "bg-secondary/50 backdrop-blur border border-white/10 hover:bg-secondary/70"
-                }`}
+                className="w-full py-6 rounded-xl font-medium bg-secondary/60 hover:bg-secondary/80 border border-white/5 text-foreground transition-all duration-300"
               >
                 Get Started
               </Button>
-            </Card>
+
+              {/* Divider */}
+              <div className="h-px bg-white/10 my-8" />
+
+              {/* Features */}
+              <ul className="space-y-4">
+                {plan.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <Check
+                      size={18}
+                      weight="bold"
+                      className="text-primary mt-0.5 flex-shrink-0"
+                    />
+                    <span className="text-muted-foreground text-sm">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>
