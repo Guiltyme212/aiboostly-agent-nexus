@@ -154,6 +154,28 @@ All colors MUST be HSL.
   }
 
   /* Helium glass effect for cards */
+  /* Pricing cards with elegant dark gradient */
+  .pricing-card {
+    background: linear-gradient(180deg, rgba(22, 24, 23, 0.95) 0%, rgba(15, 17, 16, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 
+      0 4px 24px -8px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .pricing-card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 
+      0 8px 32px -8px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .pricing-sphere {
+    filter: drop-shadow(0 4px 12px rgba(50, 205, 135, 0.3));
+  }
+
   .helium-glass {
     background: rgba(20, 20, 20, 0.8);
     backdrop-filter: blur(20px);
