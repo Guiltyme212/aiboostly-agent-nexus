@@ -231,8 +231,8 @@ const VerticalScrollingCards = () => {
   const CARD_HEIGHT = 84;
   const GAP = 12;
   const VISIBLE_COUNT = 6;
-  const SLIDE_INTERVAL = 2000;
-  const TRANSITION_DURATION = 500;
+  const SLIDE_INTERVAL = 3000;
+  const TRANSITION_DURATION = 450;
 
   const [offset, setOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
