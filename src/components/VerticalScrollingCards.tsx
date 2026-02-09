@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+
 
 // ─── Brand Icons (extracted from Stackwise Framer template) ─────────────────
 
@@ -103,13 +103,10 @@ const cards = [
 // ─── Six-dot menu icon ──────────────────────────────────────────────────────
 
 const DotsIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 6 14" fill="none">
-    <circle cx="1.5" cy="1.5" r="1" fill="rgb(100,110,100)" />
-    <circle cx="4.5" cy="1.5" r="1" fill="rgb(100,110,100)" />
-    <circle cx="1.5" cy="7" r="1" fill="rgb(100,110,100)" />
-    <circle cx="4.5" cy="7" r="1" fill="rgb(100,110,100)" />
-    <circle cx="1.5" cy="12.5" r="1" fill="rgb(100,110,100)" />
-    <circle cx="4.5" cy="12.5" r="1" fill="rgb(100,110,100)" />
+  <svg width="16" height="24" viewBox="0 0 6 20" fill="none">
+    <circle cx="3" cy="3" r="1.4" fill="rgba(190, 240, 168, 0.35)" />
+    <circle cx="3" cy="10" r="1.4" fill="rgba(190, 240, 168, 0.35)" />
+    <circle cx="3" cy="17" r="1.4" fill="rgba(190, 240, 168, 0.35)" />
   </svg>
 );
 
@@ -228,72 +225,32 @@ const ScrollCard = ({ title, stat, Icon }: CardProps) => (
 // ─── Main Vertical Scrolling Carousel ───────────────────────────────────────
 
 const VerticalScrollingCards = () => {
-  const CARD_HEIGHT = 84;
   const GAP = 12;
-  const VISIBLE_COUNT = 6;
-  const SLIDE_INTERVAL = 3000;
-  const TRANSITION_DURATION = 450;
 
-  const [offset, setOffset] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const doubledCards = [...cards, ...cards, ...cards];
-
-  const slideNext = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setOffset((prev) => prev + 1);
-  }, [isTransitioning]);
-
-  useEffect(() => {
-    if (isPaused) return;
-    timerRef.current = setInterval(slideNext, SLIDE_INTERVAL);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPaused, slideNext]);
-
-  useEffect(() => {
-    if (!isTransitioning) return;
-    const timeout = setTimeout(() => {
-      setIsTransitioning(false);
-      if (offset >= cards.length) {
-        setOffset((prev) => prev - cards.length);
-      }
-    }, TRANSITION_DURATION);
-    return () => clearTimeout(timeout);
-  }, [offset, isTransitioning]);
-
-  const containerHeight = VISIBLE_COUNT * CARD_HEIGHT + (VISIBLE_COUNT - 1) * GAP;
-  const translateY = -(offset * (CARD_HEIGHT + GAP));
+  // Create a seamless loop by duplicating cards
+  // We need enough duplicates to fill the height and scroll smoothly
+  const doubledCards = [...cards, ...cards];
 
   return (
     <div
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      className="group"
       style={{
         width: "100%",
         maxWidth: 520,
-        height: containerHeight,
+        height: 1000,
         overflow: "hidden",
         position: "relative",
         maskImage:
-          "linear-gradient(to bottom, transparent 0%, black 18%, black 85%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
         WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0%, black 18%, black 85%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
       }}
     >
       <div
+        className="flex flex-col hover:[animation-play-state:paused]"
         style={{
-          display: "flex",
-          flexDirection: "column",
           gap: GAP,
-          transform: `translateY(${translateY}px)`,
-          transition: isTransitioning
-            ? `transform ${TRANSITION_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`
-            : "none",
+          animation: "marquee-vertical 40s linear infinite",
           willChange: "transform",
         }}
       >
