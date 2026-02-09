@@ -128,21 +128,26 @@ const Hero = () => {
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-4 rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-4 shadow-lg"
+                    className="flex items-center gap-4 rounded-2xl p-4"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(15, 20, 18, 0.95) 0%, rgba(10, 14, 12, 0.98) 100%)",
+                      border: "1px solid rgba(50, 205, 135, 0.12)",
+                      boxShadow: "inset 0 0 12px rgba(0, 255, 140, 0.04), 0 4px 20px -4px rgba(0, 0, 0, 0.5)",
+                    }}
                   >
-                    <div className={`flex items-center justify-center w-12 h-12 rounded-xl ${item.color}`}>
-                      {item.icon}
+                    <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 border border-primary/20">
+                      <span className="text-primary">{item.icon}</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-foreground">{item.name}</p>
-                      <p className="text-xs text-muted-foreground tracking-wide uppercase">{item.stat}</p>
+                      <p className="text-[11px] text-primary/60 tracking-widest uppercase mt-0.5">{item.stat}</p>
                     </div>
-                    <div className="text-muted-foreground/40">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <circle cx="4" cy="4" r="1.5" />
-                        <circle cx="4" cy="12" r="1.5" />
-                        <circle cx="12" cy="4" r="1.5" />
-                        <circle cx="12" cy="12" r="1.5" />
+                    <div className="text-muted-foreground/30 flex flex-col gap-1.5 items-center">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                        <circle cx="2" cy="2" r="1.2" />
+                        <circle cx="2" cy="10" r="1.2" />
+                        <circle cx="10" cy="2" r="1.2" />
+                        <circle cx="10" cy="10" r="1.2" />
                       </svg>
                     </div>
                   </div>
