@@ -83,11 +83,9 @@ const Hero = () => {
 
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl mb-5 leading-[0.95]">
-              Automate,
+              A Conversion-First
               <br />
-              Optimize, Scale
-              <br />
-              <span className="text-primary font-semibold">With AI.</span>
+              <span className="text-primary font-semibold">AI Studio.</span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
