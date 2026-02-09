@@ -142,13 +142,12 @@ const Hero = () => {
                       <p className="text-sm font-medium text-foreground">{item.name}</p>
                       <p className="text-[11px] text-primary/60 tracking-widest uppercase mt-0.5">{item.stat}</p>
                     </div>
-                    <div className="text-muted-foreground/30 flex flex-col gap-1.5 items-center">
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                        <circle cx="2" cy="2" r="1.2" />
-                        <circle cx="2" cy="10" r="1.2" />
-                        <circle cx="10" cy="2" r="1.2" />
-                        <circle cx="10" cy="10" r="1.2" />
-                      </svg>
+                    <div className="text-muted-foreground/25 grid grid-cols-2 gap-[3px]">
+                      {[...Array(6)].map((_, i) => (
+                        <svg key={i} width="4" height="4" viewBox="0 0 4 4" fill="currentColor">
+                          <circle cx="2" cy="2" r="1.5" />
+                        </svg>
+                      ))}
                     </div>
                   </div>
                 ))}
