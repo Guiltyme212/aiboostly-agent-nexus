@@ -125,100 +125,91 @@ const ScrollCard = ({ title, stat, Icon }: CardProps) => (
   <div
     style={{
       width: "100%",
-      padding: "6px",
+      padding: "8px",
       borderRadius: 16,
       border: "1px solid rgba(213, 253, 201, 0.05)",
       background: "rgb(8, 11, 8)",
       display: "flex",
       alignItems: "center",
-      gap: 12,
       boxSizing: "border-box" as const,
       cursor: "default",
     }}
   >
-    {/* Inner lighter box with icon + text */}
+    {/* Inner lighter box with icon + text + dots */}
     <div
       style={{
         flex: 1,
         minWidth: 0,
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         gap: 14,
-        padding: "12px 14px",
+        padding: "12px 16px",
         borderRadius: 12,
         background: "rgb(14, 18, 14)",
         border: "1px solid rgba(213, 253, 201, 0.04)",
       }}
     >
-      <div
-        style={{
-          width: 40,
-          height: 40,
-          borderRadius: 9,
-          background: "rgba(213, 253, 201, 0.05)",
-          border: "1px solid rgba(213, 253, 201, 0.06)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-        }}
-      >
-        <Icon />
-      </div>
-      <div style={{ minWidth: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, minWidth: 0 }}>
         <div
           style={{
-            fontSize: 15,
-            fontWeight: 600,
-            letterSpacing: "-0.01em",
-            background: "linear-gradient(90deg, rgb(213, 253, 201) 0%, rgb(201, 201, 201) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            whiteSpace: "nowrap" as const,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            lineHeight: 1.4,
+            width: 40,
+            height: 40,
+            borderRadius: 9,
+            background: "rgba(213, 253, 201, 0.05)",
+            border: "1px solid rgba(213, 253, 201, 0.06)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
           }}
         >
-          {title}
+          <Icon />
         </div>
-        <div
-          style={{
-            fontSize: 11,
-            fontWeight: 500,
-            letterSpacing: "0.04em",
-            textTransform: "uppercase" as const,
-            marginTop: 3,
-            background: "linear-gradient(90deg, rgb(213, 253, 201) 0%, rgb(201, 201, 201) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            opacity: 0.7,
-            whiteSpace: "nowrap" as const,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            lineHeight: 1.3,
-          }}
-        >
-          {stat}
+        <div style={{ minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 15,
+              fontWeight: 600,
+              letterSpacing: "-0.01em",
+              background: "linear-gradient(90deg, rgb(213, 253, 201) 0%, rgb(201, 201, 201) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              whiteSpace: "nowrap" as const,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              lineHeight: 1.4,
+            }}
+          >
+            {title}
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 500,
+              letterSpacing: "0.04em",
+              textTransform: "uppercase" as const,
+              marginTop: 3,
+              background: "linear-gradient(90deg, rgb(213, 253, 201) 0%, rgb(201, 201, 201) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              opacity: 0.7,
+              whiteSpace: "nowrap" as const,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              lineHeight: 1.3,
+            }}
+          >
+            {stat}
+          </div>
         </div>
       </div>
-    </div>
-    {/* Green dot indicator */}
-    <div
-      style={{
-        width: 10,
-        height: 10,
-        borderRadius: "50%",
-        background: "rgb(190, 240, 168)",
-        flexShrink: 0,
-        opacity: 0.8,
-      }}
-    />
-    {/* Dots menu */}
-    <div style={{ flexShrink: 0, opacity: 0.5, marginRight: 8 }}>
-      <DotsIcon />
+      {/* Dots menu inside inner box */}
+      <div style={{ flexShrink: 0, opacity: 0.5 }}>
+        <DotsIcon />
+      </div>
     </div>
   </div>
 );
