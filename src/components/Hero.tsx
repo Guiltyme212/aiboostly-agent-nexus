@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Sparkle } from "@phosphor-icons/react";
+import { Sparkle, MagnifyingGlass, PencilLine, CalendarCheck, Star, ArrowsClockwise } from "@phosphor-icons/react";
 import { useEffect, useRef } from "react";
+import { AnimatedList } from "@/components/AnimatedList";
 
 const Hero = () => {
   const blobRef = useRef<HTMLDivElement>(null);
@@ -115,8 +116,39 @@ const Hero = () => {
           </div>
 
           {/* Right Column - Cards placeholder */}
-          <div className="hidden lg:block min-h-[500px]">
-            {/* Empty for now */}
+          <div className="hidden lg:flex items-start justify-end min-h-[500px] pt-8">
+            <div className="w-full max-w-md">
+              <AnimatedList delay={2000}>
+                {[
+                  { name: "RAG Knowledge Search", stat: "35% MANUAL WORK REDUCED", icon: <MagnifyingGlass size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
+                  { name: "Sales Email Drafter", stat: "60% LESS TIME ON COLD OUTREACH", icon: <PencilLine size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
+                  { name: "Calendar Booking Concierge", stat: "30% MORE MEETINGS, AUTOMATICALLY", icon: <CalendarCheck size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
+                  { name: "Lead Qualification Bot", stat: "60% MORE LEADS AUTO-QUALIFIED", icon: <Star size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
+                  { name: "Data Cleanup & Sync", stat: "99% OF CRM DATA CLEAN AND CURRENT", icon: <ArrowsClockwise size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-4 rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-4 shadow-lg"
+                  >
+                    <div className={`flex items-center justify-center w-12 h-12 rounded-xl ${item.color}`}>
+                      {item.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground">{item.name}</p>
+                      <p className="text-xs text-muted-foreground tracking-wide uppercase">{item.stat}</p>
+                    </div>
+                    <div className="text-muted-foreground/40">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <circle cx="4" cy="4" r="1.5" />
+                        <circle cx="4" cy="12" r="1.5" />
+                        <circle cx="12" cy="4" r="1.5" />
+                        <circle cx="12" cy="12" r="1.5" />
+                      </svg>
+                    </div>
+                  </div>
+                ))}
+              </AnimatedList>
+            </div>
           </div>
         </div>
       </div>
