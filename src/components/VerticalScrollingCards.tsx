@@ -127,12 +127,23 @@ const ScrollCard = ({ title, stat, Icon }: CardProps) => (
       width: "100%",
       padding: "8px",
       borderRadius: 16,
-      border: "1px solid rgba(213, 253, 201, 0.05)",
-      background: "rgb(8, 11, 8)",
+      border: "1px solid rgba(213, 253, 201, 0.08)",
+      background: "linear-gradient(135deg, rgb(8, 11, 8) 0%, rgb(12, 16, 12) 100%)",
       display: "flex",
       alignItems: "center",
       boxSizing: "border-box" as const,
       cursor: "default",
+      boxShadow: "0 0 20px rgba(190, 240, 168, 0.03), inset 0 1px 0 rgba(213, 253, 201, 0.04)",
+      transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+    }}
+    className="group"
+    onMouseEnter={(e) => {
+      e.currentTarget.style.borderColor = "rgba(213, 253, 201, 0.15)";
+      e.currentTarget.style.boxShadow = "0 0 30px rgba(190, 240, 168, 0.08), inset 0 1px 0 rgba(213, 253, 201, 0.06)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.borderColor = "rgba(213, 253, 201, 0.08)";
+      e.currentTarget.style.boxShadow = "0 0 20px rgba(190, 240, 168, 0.03), inset 0 1px 0 rgba(213, 253, 201, 0.04)";
     }}
   >
     {/* Inner lighter box with icon + text + dots */}
@@ -220,8 +231,8 @@ const VerticalScrollingCards = () => {
   const CARD_HEIGHT = 84;
   const GAP = 12;
   const VISIBLE_COUNT = 6;
-  const SLIDE_INTERVAL = 3500;
-  const TRANSITION_DURATION = 700;
+  const SLIDE_INTERVAL = 2000;
+  const TRANSITION_DURATION = 500;
 
   const [offset, setOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -281,7 +292,7 @@ const VerticalScrollingCards = () => {
           gap: GAP,
           transform: `translateY(${translateY}px)`,
           transition: isTransitioning
-            ? `transform ${TRANSITION_DURATION}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+            ? `transform ${TRANSITION_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`
             : "none",
           willChange: "transform",
         }}
