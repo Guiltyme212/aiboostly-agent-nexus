@@ -89,8 +89,7 @@ const Hero = () => {
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
-              Boost efficiency and eliminate repetitive tasks with AI-powered automation solutions
-              tailored to your business needs.
+              We build custom AI agents and automations that handle leads, calls, workflows
             </p>
 
             {/* CTA Buttons */}
