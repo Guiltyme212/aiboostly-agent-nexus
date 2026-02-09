@@ -19,6 +19,7 @@ const Pricing = () => {
         "30-day implementation",
       ],
       recommended: false,
+      sphereType: "single",
     },
     {
       name: "PRO",
@@ -34,6 +35,7 @@ const Pricing = () => {
         "14-day implementation",
       ],
       recommended: true,
+      sphereType: "double",
     },
     {
       name: "ENTERPRISE",
@@ -49,6 +51,7 @@ const Pricing = () => {
         "7-day implementation",
       ],
       recommended: false,
+      sphereType: "triple",
     },
   ];
 
@@ -67,7 +70,7 @@ const Pricing = () => {
 
         {/* Toggle */}
         <div className="mb-16 scroll-reveal">
-          <div className="inline-flex items-center bg-secondary/30 rounded-full p-1.5">
+          <div className="inline-flex items-center bg-secondary/40 rounded-full p-1.5 border border-white/5">
             <button
               onClick={() => setIsYearly(false)}
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
@@ -96,7 +99,7 @@ const Pricing = () => {
           {plans.map((plan, index) => (
             <div
               key={index}
-              className="pricing-card relative rounded-2xl p-8 scroll-reveal"
+              className="pricing-card relative rounded-3xl p-8 scroll-reveal"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Most Popular Badge */}
@@ -108,26 +111,26 @@ const Pricing = () => {
                 </div>
               )}
 
-              {/* 3D Sphere Icon */}
-              <div className="mb-8">
-                <div className="pricing-sphere w-16 h-16 relative">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-lg" />
-                  <div className="absolute inset-1 rounded-full bg-gradient-to-br from-primary/80 to-transparent opacity-60" />
-                  <div className="absolute top-2 left-3 w-3 h-3 rounded-full bg-white/30 blur-[1px]" />
-                  {plan.recommended && (
-                    <>
-                      <div className="absolute -right-2 top-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
-                      <div className="absolute -right-4 top-1/3 w-5 h-5 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
-                    </>
-                  )}
-                  {index === 2 && (
-                    <>
-                      <div className="absolute -right-3 top-0 w-7 h-7 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
-                      <div className="absolute right-2 -top-3 w-5 h-5 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
-                      <div className="absolute -right-1 top-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-primary via-primary to-primary/60 shadow-md" />
-                    </>
-                  )}
-                </div>
+              {/* 3D Sphere Icons */}
+              <div className="mb-8 h-20 relative">
+                {plan.sphereType === "single" && (
+                  <div className="pricing-sphere-container">
+                    <div className="pricing-sphere w-16 h-16" />
+                  </div>
+                )}
+                {plan.sphereType === "double" && (
+                  <div className="pricing-sphere-container relative">
+                    <div className="pricing-sphere w-14 h-14" />
+                    <div className="pricing-sphere w-10 h-10 absolute top-2 left-10" />
+                  </div>
+                )}
+                {plan.sphereType === "triple" && (
+                  <div className="pricing-sphere-container relative">
+                    <div className="pricing-sphere w-12 h-12" />
+                    <div className="pricing-sphere w-9 h-9 absolute -top-1 left-8" />
+                    <div className="pricing-sphere w-7 h-7 absolute top-6 left-14" />
+                  </div>
+                )}
               </div>
 
               {/* Plan Name */}
@@ -136,7 +139,7 @@ const Pricing = () => {
               </h3>
 
               {/* Description */}
-              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-6 pr-8">
                 {plan.description}
               </p>
 
