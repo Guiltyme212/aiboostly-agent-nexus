@@ -81,11 +81,11 @@ const Hero = () => {
 
           {/* Main Heading */}
           <h1 className="text-6xl md:text-8xl mb-5 leading-[0.95]">
-            Conversion-First
+            Automate,
             <br />
-            AI Studio
+            Optimize, Scale
             <br />
-            <span className="text-green-500 font-semibold">Green</span>
+            <span className="text-primary font-semibold">With AI</span>
           </h1>
 
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
