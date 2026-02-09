@@ -116,7 +116,7 @@ const Hero = () => {
           </div>
 
           {/* Right Column - Cards placeholder */}
-          <div className="hidden lg:flex items-start justify-end min-h-[500px] pt-8">
+          <div className="hidden lg:flex items-start justify-end min-h-[500px] -mt-20">
             <div className="w-full max-w-lg">
               <VerticalScrollingCards />
             </div>
