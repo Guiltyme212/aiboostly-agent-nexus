@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("#how-it-works");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,12 +42,17 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-4 flex-1 justify-center">
-            <div className="flex items-center gap-6 border border-white/10 rounded-full px-6 py-2">
+            <div className="flex items-center gap-1 border border-white/10 rounded-lg px-1.5 py-1.5">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setActiveLink(link.href)}
+                  className={`text-sm px-4 py-1.5 rounded-md transition-colors ${
+                    activeLink === link.href
+                      ? "border border-white/20 text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {link.label}
                 </a>
