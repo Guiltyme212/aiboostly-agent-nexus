@@ -119,76 +119,33 @@ interface CardProps {
   title: string;
   stat: string;
   Icon: React.FC;
-  isCenter?: boolean;
 }
 
-const ScrollCard = ({ title, stat, Icon, isCenter }: CardProps) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [spotlightPos, setSpotlightPos] = useState({ x: 0, y: 0 });
-  const [spotlightOpacity, setSpotlightOpacity] = useState(0);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setSpotlightPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={(e) => {
-        setSpotlightOpacity(1);
-        e.currentTarget.style.borderColor = isCenter
-          ? "rgba(213, 253, 201, 0.22)"
-          : "rgba(213, 253, 201, 0.15)";
-        e.currentTarget.style.boxShadow = isCenter
-          ? "0 0 40px rgba(190, 240, 168, 0.12), inset 0 1px 0 rgba(213, 253, 201, 0.08)"
-          : "0 0 30px rgba(190, 240, 168, 0.08), inset 0 1px 0 rgba(213, 253, 201, 0.06)";
-      }}
-      onMouseLeave={(e) => {
-        setSpotlightOpacity(0);
-        e.currentTarget.style.borderColor = isCenter
-          ? "rgba(213, 253, 201, 0.12)"
-          : "rgba(213, 253, 201, 0.08)";
-        e.currentTarget.style.boxShadow = isCenter
-          ? "0 0 24px rgba(190, 240, 168, 0.06), inset 0 1px 0 rgba(213, 253, 201, 0.05)"
-          : "0 0 20px rgba(190, 240, 168, 0.03), inset 0 1px 0 rgba(213, 253, 201, 0.04)";
-      }}
-      style={{
-        width: "100%",
-        padding: "8px",
-        borderRadius: 16,
-        border: `1px solid rgba(213, 253, 201, ${isCenter ? 0.12 : 0.08})`,
-        background: "linear-gradient(135deg, rgb(8, 11, 8) 0%, rgb(12, 16, 12) 100%)",
-        display: "flex",
-        alignItems: "center",
-        boxSizing: "border-box" as const,
-        cursor: "default",
-        boxShadow: isCenter
-          ? "0 0 24px rgba(190, 240, 168, 0.06), inset 0 1px 0 rgba(213, 253, 201, 0.05)"
-          : "0 0 20px rgba(190, 240, 168, 0.03), inset 0 1px 0 rgba(213, 253, 201, 0.04)",
-        transition: "border-color 0.3s ease, box-shadow 0.3s ease",
-        position: "relative" as const,
-        overflow: "hidden" as const,
-      }}
-      className="group"
-    >
-      {/* Spotlight overlay */}
-      {isCenter && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            pointerEvents: "none",
-            borderRadius: 16,
-            opacity: spotlightOpacity,
-            background: `radial-gradient(circle 150px at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(190, 240, 168, 0.12), transparent 70%)`,
-            transition: "opacity 0.3s ease",
-            zIndex: 1,
-          }}
-        />
-      )}
+const ScrollCard = ({ title, stat, Icon }: CardProps) => (
+  <div
+    style={{
+      width: "100%",
+      padding: "8px",
+      borderRadius: 16,
+      border: "1px solid rgba(213, 253, 201, 0.08)",
+      background: "linear-gradient(135deg, rgb(8, 11, 8) 0%, rgb(12, 16, 12) 100%)",
+      display: "flex",
+      alignItems: "center",
+      boxSizing: "border-box" as const,
+      cursor: "default",
+      boxShadow: "0 0 20px rgba(190, 240, 168, 0.03), inset 0 1px 0 rgba(213, 253, 201, 0.04)",
+      transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+    }}
+    className="group"
+    onMouseEnter={(e) => {
+      e.currentTarget.style.borderColor = "rgba(213, 253, 201, 0.15)";
+      e.currentTarget.style.boxShadow = "0 0 30px rgba(190, 240, 168, 0.08), inset 0 1px 0 rgba(213, 253, 201, 0.06)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.borderColor = "rgba(213, 253, 201, 0.08)";
+      e.currentTarget.style.boxShadow = "0 0 20px rgba(190, 240, 168, 0.03), inset 0 1px 0 rgba(213, 253, 201, 0.04)";
+    }}
+  >
     {/* Inner lighter box with icon + text + dots */}
     <div
       style={{
@@ -266,8 +223,8 @@ const ScrollCard = ({ title, stat, Icon, isCenter }: CardProps) => {
       </div>
     </div>
   </div>
-  );
-};
+);
+
 // ─── Main Vertical Scrolling Carousel ───────────────────────────────────────
 
 const VerticalScrollingCards = () => {
@@ -340,19 +297,9 @@ const VerticalScrollingCards = () => {
           willChange: "transform",
         }}
       >
-        {doubledCards.map((card, i) => {
-          const visibleIndex = i - offset;
-          const centerIndex = Math.floor(VISIBLE_COUNT / 2);
-          return (
-            <ScrollCard
-              key={`${card.title}-${i}`}
-              title={card.title}
-              stat={card.stat}
-              Icon={card.Icon}
-              isCenter={visibleIndex === centerIndex}
-            />
-          );
-        })}
+        {doubledCards.map((card, i) => (
+          <ScrollCard key={`${card.title}-${i}`} title={card.title} stat={card.stat} Icon={card.Icon} />
+        ))}
       </div>
     </div>
   );
