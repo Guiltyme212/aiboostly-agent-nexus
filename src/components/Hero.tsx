@@ -80,28 +80,28 @@ const Hero = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-6xl md:text-8xl mb-6 leading-[0.95]">
+          <h1 className="text-6xl md:text-8xl mb-5 leading-[0.95]">
             Automate,
             <br />
             Optimize, Scale
             <br />
-            <span className="text-primary">With AI</span>
+            <span className="text-primary font-semibold">With AI</span>
           </h1>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
             Boost efficiency and eliminate repetitive tasks with AI-powered automation solutions
             tailored to your business needs.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Button className="neumorphic-button px-8 py-6 rounded-full text-base font-medium">
+            <Button className="neumorphic-button px-8 py-6 rounded-full text-base font-medium hover:scale-105 transition-all duration-300">
               <Sparkle size={20} weight="fill" className="mr-2" />
               Launch Agent Demo
             </Button>
             <Button
               variant="outline"
-              className="px-8 py-6 rounded-full text-base font-medium bg-secondary/50 backdrop-blur border-white/10 hover:bg-secondary/70"
+              className="px-8 py-6 rounded-full text-base font-medium bg-secondary/50 backdrop-blur border-white/10 hover:bg-secondary/70 hover:scale-105 transition-all duration-300"
             >
               Our Services
             </Button>
