@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Sparkle, MagnifyingGlass, PencilLine, CalendarCheck, Star, ArrowsClockwise } from "@phosphor-icons/react";
+import { Sparkle } from "@phosphor-icons/react";
 import { useEffect, useRef } from "react";
-import { AnimatedList } from "@/components/AnimatedList";
+import VerticalScrollingCards from "@/components/VerticalScrollingCards";
 
 const Hero = () => {
   const blobRef = useRef<HTMLDivElement>(null);
@@ -117,41 +117,8 @@ const Hero = () => {
 
           {/* Right Column - Cards placeholder */}
           <div className="hidden lg:flex items-start justify-end min-h-[500px] pt-8">
-            <div className="w-full max-w-md">
-              <AnimatedList delay={2000}>
-                {[
-                  { name: "RAG Knowledge Search", stat: "35% MANUAL WORK REDUCED", icon: <MagnifyingGlass size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
-                  { name: "Sales Email Drafter", stat: "60% LESS TIME ON COLD OUTREACH", icon: <PencilLine size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
-                  { name: "Calendar Booking Concierge", stat: "30% MORE MEETINGS, AUTOMATICALLY", icon: <CalendarCheck size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
-                  { name: "Lead Qualification Bot", stat: "60% MORE LEADS AUTO-QUALIFIED", icon: <Star size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
-                  { name: "Data Cleanup & Sync", stat: "99% OF CRM DATA CLEAN AND CURRENT", icon: <ArrowsClockwise size={24} weight="duotone" />, color: "bg-primary/20 text-primary" },
-                ].map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-4 rounded-2xl p-4"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(15, 20, 18, 0.95) 0%, rgba(10, 14, 12, 0.98) 100%)",
-                      border: "1px solid rgba(50, 205, 135, 0.12)",
-                      boxShadow: "inset 0 0 12px rgba(0, 255, 140, 0.04), 0 4px 20px -4px rgba(0, 0, 0, 0.5)",
-                    }}
-                  >
-                    <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 border border-primary/20">
-                      <span className="text-primary">{item.icon}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground">{item.name}</p>
-                      <p className="text-[11px] text-primary/60 tracking-widest uppercase mt-0.5">{item.stat}</p>
-                    </div>
-                    <div className="text-muted-foreground/25 grid grid-cols-2 gap-[3px]">
-                      {[...Array(6)].map((_, i) => (
-                        <svg key={i} width="4" height="4" viewBox="0 0 4 4" fill="currentColor">
-                          <circle cx="2" cy="2" r="1.5" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </AnimatedList>
+            <div className="w-full max-w-lg">
+              <VerticalScrollingCards />
             </div>
           </div>
         </div>
