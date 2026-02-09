@@ -125,27 +125,38 @@ const ScrollCard = ({ title, stat, Icon }: CardProps) => (
   <div
     style={{
       width: "100%",
-      padding: "18px 20px",
-      borderRadius: 14,
+      padding: "6px",
+      borderRadius: 16,
       border: "1px solid rgba(213, 253, 201, 0.05)",
-      background: "rgb(11, 15, 11)",
+      background: "rgb(8, 11, 8)",
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
-      gap: 16,
+      gap: 12,
       boxSizing: "border-box" as const,
-      transition: "border-color 0.3s ease, background 0.3s ease",
       cursor: "default",
     }}
   >
-    <div style={{ display: "flex", alignItems: "center", gap: 14, minWidth: 0 }}>
+    {/* Inner lighter box with icon + text */}
+    <div
+      style={{
+        flex: 1,
+        minWidth: 0,
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
+        padding: "12px 14px",
+        borderRadius: 12,
+        background: "rgb(14, 18, 14)",
+        border: "1px solid rgba(213, 253, 201, 0.04)",
+      }}
+    >
       <div
         style={{
           width: 40,
           height: 40,
           borderRadius: 9,
           background: "rgba(213, 253, 201, 0.05)",
-          border: "1px solid rgba(213, 253, 201, 0.04)",
+          border: "1px solid rgba(213, 253, 201, 0.06)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -194,7 +205,19 @@ const ScrollCard = ({ title, stat, Icon }: CardProps) => (
         </div>
       </div>
     </div>
-    <div style={{ flexShrink: 0, opacity: 0.5 }}>
+    {/* Green dot indicator */}
+    <div
+      style={{
+        width: 10,
+        height: 10,
+        borderRadius: "50%",
+        background: "rgb(190, 240, 168)",
+        flexShrink: 0,
+        opacity: 0.8,
+      }}
+    />
+    {/* Dots menu */}
+    <div style={{ flexShrink: 0, opacity: 0.5, marginRight: 8 }}>
       <DotsIcon />
     </div>
   </div>
