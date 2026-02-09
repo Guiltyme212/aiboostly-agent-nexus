@@ -32,17 +32,43 @@ const Index = () => {
   }, []);
 
   return (
-    <main className="min-h-screen">
-      <Navigation />
-      <Hero />
-      <FeaturedIn />
-      <Testimonials />
-      <HowItWorks />
-      <Features />
-      <Mission />
-      <Pricing />
-      <FAQ />
-      <Footer />
+    <main className="min-h-screen relative overflow-hidden">
+      {/* Gradient Blobs - Helium Style Background */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Top Right Blob */}
+        <div
+          className="gradient-blob"
+          style={{ top: '-200px', right: '-200px' }}
+        />
+        {/* Bottom Left Blob */}
+        <div
+          className="gradient-blob gradient-blob-accent"
+          style={{ bottom: '-150px', left: '-250px', animationDelay: '-5s' }}
+        />
+        {/* Middle Right Blob */}
+        <div
+          className="gradient-blob gradient-blob-sm"
+          style={{ top: '40%', right: '-150px', animationDelay: '-10s' }}
+        />
+        {/* Middle Left Blob */}
+        <div
+          className="gradient-blob gradient-blob-sm gradient-blob-accent"
+          style={{ top: '60%', left: '-150px', animationDelay: '-15s' }}
+        />
+      </div>
+
+      <div className="relative z-10">
+        <Navigation />
+        <Hero />
+        <FeaturedIn />
+        <Testimonials />
+        <HowItWorks />
+        <Features />
+        <Mission />
+        <Pricing />
+        <FAQ />
+        <Footer />
+      </div>
     </main>
   );
 };
