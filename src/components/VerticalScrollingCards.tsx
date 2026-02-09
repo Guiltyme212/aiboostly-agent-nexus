@@ -269,9 +269,9 @@ const VerticalScrollingCards = () => {
         overflow: "hidden",
         position: "relative",
         maskImage:
-          "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, black 18%, black 85%, transparent 100%)",
         WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
+          "linear-gradient(to bottom, transparent 0%, black 18%, black 85%, transparent 100%)",
       }}
     >
       <div
