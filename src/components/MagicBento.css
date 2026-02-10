@@ -120,6 +120,22 @@
   grid-area: data-primary;
 }
 
+.feature-card--integrations {
+  grid-area: integrations;
+}
+
+.feature-card--workflow {
+  grid-area: workflow;
+}
+
+.feature-card--chatbot {
+  grid-area: chatbot;
+}
+
+.feature-card--data-duplicate {
+  grid-area: data-duplicate;
+}
+
 .feature-card--voice-assistant {
   grid-area: voice-assistant;
 }
