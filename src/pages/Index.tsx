@@ -60,7 +60,6 @@ const Index = () => {
       <div className="relative z-10">
         <Navigation />
         <Hero />
-        <FeaturedIn />
         <HowItWorks />
         <Features />
         <Testimonials />

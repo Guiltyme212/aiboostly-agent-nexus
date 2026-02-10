@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkle } from "@phosphor-icons/react";
 import { useEffect, useRef } from "react";
 import VerticalScrollingCards from "@/components/VerticalScrollingCards";
+import FeaturedIn from "@/components/FeaturedIn";
 
 const Hero = () => {
   const blobRef = useRef<HTMLDivElement>(null);
@@ -107,9 +108,32 @@ const Hero = () => {
             </div>
 
             {/* Trusted By */}
-            <p className="text-sm text-muted-foreground opacity-70">
+            <p className="text-sm text-muted-foreground opacity-70 mb-6">
               Helped 50+ businesses save time and increase revenue
             </p>
+
+            {/* Logo Train */}
+            <div className="max-w-xl">
+              <div className="relative w-full overflow-hidden mask-linear-fade py-4">
+                <div
+                  className="flex items-center gap-12 whitespace-nowrap"
+                  style={{
+                    animation: "marquee-horizontal 45s linear infinite",
+                    width: "fit-content"
+                  }}
+                >
+                  {["Forbes", "Product Hunt", "Y Combinator", "TechCrunch", "Automation Weekly", "VentureBeat", "Business Insider", "Forbes", "Product Hunt", "Y Combinator", "TechCrunch", "Automation Weekly", "VentureBeat", "Business Insider", "Forbes", "Product Hunt", "Y Combinator", "TechCrunch", "Automation Weekly", "VentureBeat", "Business Insider", "Forbes", "Product Hunt", "Y Combinator", "TechCrunch", "Automation Weekly", "VentureBeat", "Business Insider"].map((logo, index) => (
+                    <span
+                      key={`${logo}-${index}`}
+                      className="text-lg md:text-xl font-bold text-white/25 hover:text-white/60 transition-all duration-500 cursor-default select-none"
+                      style={{ fontFamily: 'system-ui, sans-serif' }}
+                    >
+                      {logo}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Column - Cards placeholder */}

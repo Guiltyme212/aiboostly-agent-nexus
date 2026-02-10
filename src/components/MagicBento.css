@@ -12,11 +12,19 @@
 
 .card-grid {
   display: grid;
-  gap: 1.5em;
+  gap: clamp(1.5rem, 2.2vw, 2rem);
   padding: 0.75em;
   max-width: 90em;
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
   margin: 0 auto;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "lead"
+    "data-primary"
+    "integrations"
+    "workflow"
+    "chatbot"
+    "voice-assistant";
 }
 
 .magic-bento-card {
@@ -104,9 +112,36 @@
   line-clamp: var(--clamp-desc);
 }
 
+.feature-card--lead {
+  grid-area: lead;
+}
+
+.feature-card--data-primary {
+  grid-area: data-primary;
+}
+
+.feature-card--integrations {
+  grid-area: integrations;
+}
+
+.feature-card--workflow {
+  grid-area: workflow;
+}
+
+.feature-card--chatbot {
+  grid-area: chatbot;
+}
+
+.feature-card--data-duplicate {
+  grid-area: data-duplicate;
+}
+
+.feature-card--voice-assistant {
+  grid-area: voice-assistant;
+}
+
 @media (max-width: 599px) {
   .card-grid {
-    grid-template-columns: 1fr;
     width: 90%;
     margin: 0 auto;
     padding: 0.5em;
@@ -120,13 +155,22 @@
 
 @media (min-width: 600px) {
   .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "lead data-primary"
+      "integrations integrations"
+      "workflow workflow"
+      "chatbot voice-assistant";
   }
 }
 
 @media (min-width: 1024px) {
   .card-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "lead data-primary integrations integrations"
+      "workflow workflow chatbot voice-assistant";
   }
 }
 
@@ -191,6 +235,81 @@
   box-shadow:
     0 4px 20px rgba(180, 0, 255, 0.25),
     0 0 30px rgba(180, 0, 255, 0.2);
+}
+
+.workflow-link-base {
+  fill: none;
+  stroke: rgba(36, 95, 55, 0.9);
+  stroke-width: 0.52;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 1px rgba(86, 140, 113, 0.25));
+}
+
+.workflow-link-snake {
+  fill: none;
+  stroke: rgba(66, 226, 148, 0.98);
+  stroke-width: 0.62;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 10 126;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 3px rgba(50, 205, 135, 0.35));
+  animation: workflowSnake 2.25s linear infinite;
+}
+
+.group:hover .workflow-link-snake {
+  stroke-width: 0.72;
+}
+
+.workflow-cable-joint {
+  fill: rgba(75, 221, 150, 0.95);
+  filter: drop-shadow(0 0 2px rgba(50, 205, 135, 0.55));
+}
+
+.workflow-node {
+  animation: workflowNodePulse 2.4s ease-in-out infinite;
+}
+
+.workflow-midline {
+  transform-origin: top center;
+  animation: workflowStemPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes workflowSnake {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -132;
+  }
+}
+
+@keyframes workflowNodePulse {
+  0%,
+  100% {
+    box-shadow: 0 10px 28px hsl(var(--primary) / 0.35);
+  }
+
+  50% {
+    box-shadow: 0 12px 34px hsl(var(--primary) / 0.48);
+  }
+}
+
+@keyframes workflowStemPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scaleY(0.7);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scaleY(1);
+  }
 }
 
 /* Global spotlight styles */
