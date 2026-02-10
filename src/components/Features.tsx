@@ -42,7 +42,7 @@ const Features = () => {
       description: "Turn raw data into actionable insights with AI-powered analytics.",
       icon: Database,
       gradient: "from-[#9198e5] to-[#712020]",
-      layoutClass: "feature-card--secondary",
+      layoutClass: "feature-card--voice-assistant",
       hasChart: true,
     },
     {
@@ -82,7 +82,7 @@ const Features = () => {
       description: "AI voice agents that handle calls, FAQs and support for you.",
       icon: Database,
       gradient: "from-[#d5fdc9] to-[#c9c9c9]",
-      layoutClass: "feature-card--highlight",
+      layoutClass: "feature-card--data-primary",
       hasVoiceAssistant: true,
     },
   ];

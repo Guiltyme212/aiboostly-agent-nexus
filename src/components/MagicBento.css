@@ -116,11 +116,11 @@
   grid-area: lead;
 }
 
-.feature-card--highlight {
+.feature-card--data-primary {
   grid-area: data-primary;
 }
 
-.feature-card--secondary {
+.feature-card--voice-assistant {
   grid-area: voice-assistant;
 }
 
