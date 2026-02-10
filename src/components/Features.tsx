@@ -1,3 +1,4 @@
+// Features Component - Updated
 import { useState } from "react";
 import { EnvelopeSimple, CalendarDots, Table, Database, ChatsCircle, ArrowsClockwise, Plugs, ShareNetwork } from "@phosphor-icons/react";
 import { MagicBento, ParticleCard } from "./MagicBento";
