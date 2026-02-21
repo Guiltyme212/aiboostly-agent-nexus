@@ -411,21 +411,6 @@ const Features = () => {
               {/* Voice Assistant Demo */}
               {feature.hasVoiceAssistant && (
                 <div className="mt-6 relative h-80 flex items-center justify-center overflow-hidden">
-                  {/* Blurred circular gradient background */}
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{
-                      filter: 'blur(60px)',
-                      opacity: 0.5
-                    }}
-                  >
-                    <div
-                      className="w-48 h-48 rounded-full"
-                      style={{
-                        background: 'radial-gradient(circle, hsl(var(--primary) / 0.8) 0%, hsl(var(--primary) / 0) 70%)'
-                      }}
-                    />
-                  </div>
 
                   {/* Animated waveform lines */}
                   <div className="absolute inset-0 flex items-center justify-center gap-1.5 px-4">

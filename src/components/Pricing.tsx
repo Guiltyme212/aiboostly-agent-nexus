@@ -1,55 +1,65 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "@phosphor-icons/react";
 
 const Pricing = () => {
-  const [isYearly, setIsYearly] = useState(false);
-
   const plans = [
     {
-      name: "STARTER",
-      price: "$2,499",
+      name: "Website Upgrade",
+      price: "€997",
+      priceLabel: "STARTING FROM",
       period: "ONE-TIME",
-      description: "Perfect for small teams getting started with automation",
+      description: "A modern, professional website that makes the right first impression",
+      subPriceNote: "",
       features: [
-        "1 AI agent",
-        "Up to 3 tool integrations",
-        "Basic dashboard",
-        "Email support",
-        "30-day implementation",
+        "Custom responsive website",
+        "Mobile-optimized design",
+        "Basic SEO setup",
+        "Contact form & Google Maps",
+        "Click-to-call phone & email links",
+        "14-day delivery",
       ],
+      ctaText: "Get Started",
       recommended: false,
       sphereType: "single",
     },
     {
-      name: "PRO",
-      price: "$5,999",
-      period: "ONE-TIME",
-      description: "Most popular for growing businesses",
+      name: "Growth Package",
+      price: "€4,997",
+      priceLabel: "STARTING FROM",
+      period: "ONE-TIME SETUP",
+      description: "Your website plus AI tools that actively bring in new customers",
+      subPriceNote: "Then €149/mo for AI tools & support",
       features: [
-        "3 AI agents",
-        "Unlimited integrations",
-        "Advanced dashboard",
+        "Everything in Website Upgrade",
+        "AI chatbot - answers customers 24/7",
+        "Automated appointment booking",
+        "Google Business optimization",
+        "WhatsApp & email follow-ups",
+        "Lead tracking dashboard",
         "Priority support",
-        "Custom workflows",
-        "14-day implementation",
       ],
+      ctaText: "Get Started",
       recommended: true,
       sphereType: "double",
     },
     {
-      name: "ENTERPRISE",
-      price: "Custom",
-      period: "PRICING",
-      description: "For teams that need everything",
+      name: "Full Autopilot",
+      price: "Let's Talk",
+      priceLabel: "CUSTOM",
+      period: "TAILORED TO YOUR BUSINESS",
+      description:
+        "Complete AI-powered business automation - you focus on the work, we handle the rest",
+      subPriceNote: "",
       features: [
-        "Unlimited AI agents",
-        "All integrations",
-        "White-label dashboard",
-        "Dedicated support",
-        "Custom SLAs",
-        "7-day implementation",
+        "Everything in Growth Package",
+        "Social media automation",
+        "CRM integration",
+        "Custom AI workflows",
+        "Invoicing & scheduling automation",
+        "Ongoing optimization & updates",
+        "Dedicated account manager",
       ],
+      ctaText: "Book a Call",
       recommended: false,
       sphereType: "triple",
     },
@@ -59,39 +69,17 @@ const Pricing = () => {
     <section id="pricing" className="py-24">
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="mb-12 scroll-reveal">
+        <div className="mb-16 scroll-reveal">
           <span className="text-primary text-sm font-medium tracking-widest uppercase mb-4 block">
-            PRICINGS
+            PRICING
           </span>
           <h2 className="text-5xl md:text-6xl font-light tracking-tight">
-            Our Subscriptions
+            Choose Your Growth Plan
           </h2>
-        </div>
-
-        {/* Toggle */}
-        <div className="mb-16 scroll-reveal">
-          <div className="inline-flex items-center bg-secondary/40 rounded-full p-1.5 border border-white/5">
-            <button
-              onClick={() => setIsYearly(false)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                !isYearly
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setIsYearly(true)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                isYearly
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Yearly
-            </button>
-          </div>
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed mt-6">
+            Start with a stunning website. Scale up with AI-powered automation
+            that brings you more customers on autopilot.
+          </p>
         </div>
 
         {/* Cards */}
@@ -106,7 +94,7 @@ const Pricing = () => {
               {plan.recommended && (
                 <div className="absolute top-6 right-6">
                   <span className="bg-secondary/80 backdrop-blur text-foreground text-xs font-medium px-4 py-2 rounded-full border border-white/10">
-                    Most Popular
+                    MOST POPULAR
                   </span>
                 </div>
               )}
@@ -148,19 +136,27 @@ const Pricing = () => {
 
               {/* Price */}
               <div className="mb-8">
+                <p className="text-primary text-sm tracking-[0.18em] uppercase mb-2">
+                  {plan.priceLabel}
+                </p>
                 <span className="text-5xl font-light tracking-tight">
                   {plan.price}
                 </span>
                 <p className="text-muted-foreground text-xs tracking-wider mt-2 uppercase">
                   {plan.period}
                 </p>
+                {plan.subPriceNote && (
+                  <p className="text-muted-foreground text-sm mt-4 pt-4 border-t border-white/10">
+                    {plan.subPriceNote}
+                  </p>
+                )}
               </div>
 
               {/* CTA Button */}
               <Button
                 className="w-full py-6 rounded-xl font-medium bg-secondary/60 hover:bg-secondary/80 border border-white/5 text-foreground transition-all duration-300"
               >
-                Get Started
+                {plan.ctaText}
               </Button>
 
               {/* Divider */}

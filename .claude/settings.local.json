@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(start:*)",
+      "Bash(git fetch:*)",
+      "Bash(git add:*)"
     ]
   }
 }
