@@ -98,7 +98,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <ShinyButton>
                 <Sparkle size={20} weight="fill" className="mr-2 inline-block align-middle" />
-                We call you back
+                Let us call you back
               </ShinyButton>
             </div>
 
