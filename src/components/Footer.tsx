@@ -95,7 +95,7 @@ const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-white/10 text-center text-sm text-muted-foreground">
-          <p>© 2025 AiBoostly. All rights reserved.</p>
+          <p>© 2026 AiBoostly. All rights reserved.</p>
         </div>
       </div>
     </footer>

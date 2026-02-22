@@ -1,0 +1,144 @@
+/* src/components/ElectricPricing.css */
+
+.electric-card-container {
+    --color-neutral-900: #0a0a0f;
+
+    padding: 2px;
+    border-radius: 1.5rem;
+    /* 24px */
+    position: relative;
+    background: linear-gradient(-30deg,
+            var(--gradient-color),
+            transparent,
+            var(--gradient-color)),
+        linear-gradient(to bottom,
+            var(--color-neutral-900),
+            var(--color-neutral-900));
+
+    display: flex;
+    flex-direction: column;
+}
+
+.electric-card-container.theme-orange {
+    --electric-border-color: #dd8448;
+    --electric-light-color: #dd8448;
+    --electric-glow-color: rgba(221, 132, 72, 0.6);
+    --gradient-color: rgba(221, 132, 72, 0.1);
+    --f: url(#electric-noise-orange);
+}
+
+.electric-card-container.theme-blue {
+    --electric-border-color: DodgerBlue;
+    --electric-light-color: DodgerBlue;
+    --electric-glow-color: rgba(30, 144, 255, 0.6);
+    --gradient-color: rgba(30, 144, 255, 0.15);
+    /* DodgerBlue with low opacity */
+    --f: url(#electric-noise-blue);
+}
+
+.electric-card-container.theme-pink {
+    --electric-border-color: #ff2a85;
+    /* Vibrant pink */
+    --electric-light-color: #ff66a3;
+    --electric-glow-color: rgba(255, 42, 133, 0.6);
+    --gradient-color: rgba(255, 42, 133, 0.12);
+    --f: url(#electric-noise-pink);
+}
+
+.electric-card-container .inner-container {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    z-index: 0;
+}
+
+.electric-card-container .border-outer {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--electric-glow-color);
+    border-radius: 1.5rem;
+    padding-right: 0.15em;
+    padding-bottom: 0.15em;
+    pointer-events: none;
+}
+
+.electric-card-container .main-card-border {
+    position: absolute;
+    inset: -4px;
+    border-radius: 1.5rem;
+    border: 2px solid var(--electric-border-color);
+    filter: var(--f);
+    pointer-events: none;
+}
+
+/* Glow effects */
+.electric-card-container .glow-layer-1 {
+    border: 2px solid var(--electric-glow-color);
+    border-radius: 1.5rem;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.electric-card-container .glow-layer-2 {
+    border: 2px solid var(--electric-light-color);
+    border-radius: 1.5rem;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: blur(4px);
+    pointer-events: none;
+}
+
+/* Overlay effects */
+.electric-card-container .overlay-1,
+.electric-card-container .overlay-2 {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    mix-blend-mode: overlay;
+    transform: scale(1.1);
+    filter: blur(16px);
+    /* Removing the harsh white gradient */
+    pointer-events: none;
+}
+
+.electric-card-container .overlay-1 {
+    opacity: 0;
+}
+
+.electric-card-container .overlay-2 {
+    opacity: 0;
+}
+
+/* Background glow */
+.electric-card-container .background-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    filter: blur(32px);
+    transform: scale(1.1);
+    opacity: 0.15;
+    /* Lowered opacity for a subtler glow */
+    z-index: -1;
+    background: linear-gradient(-30deg,
+            var(--electric-light-color),
+            transparent,
+            var(--electric-border-color));
+    pointer-events: none;
+}
+
+/* Content container */
+.electric-card-container .content-container {
+    position: relative;
+    z-index: 10;
+    background-color: var(--color-neutral-900);
+    border-radius: 1.4rem;
+    margin: 1px;
+}
