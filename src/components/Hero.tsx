@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ShinyButton } from "@/components/ui/shiny-button";
 import { Sparkle } from "@phosphor-icons/react";
 import { useEffect, useRef } from "react";
 import VerticalScrollingCards from "@/components/VerticalScrollingCards";
@@ -95,16 +96,10 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button className="neumorphic-button px-8 py-6 rounded-full text-base font-medium hover:scale-105 transition-all duration-300">
-                <Sparkle size={20} weight="fill" className="mr-2" />
-                Launch Agent Demo
-              </Button>
-              <Button
-                variant="outline"
-                className="px-8 py-6 rounded-full text-base font-medium bg-secondary/50 backdrop-blur border-white/10 hover:bg-secondary/70 hover:scale-105 transition-all duration-300"
-              >
-                Our Services
-              </Button>
+              <ShinyButton>
+                <Sparkle size={20} weight="fill" className="mr-2 inline-block align-middle" />
+                We call you back
+              </ShinyButton>
             </div>
 
             {/* Trusted By */}
