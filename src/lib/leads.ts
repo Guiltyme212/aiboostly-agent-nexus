@@ -8,15 +8,26 @@ export interface Lead {
   reviews: number | null;
   email: string;
   emailStatus: string;
+  emailDraft: string;
   city: string;
   notes: string;
   previewUrl: string;
   phone: string;
   fullAddress: string;
+  postalCode: string;
   category: string;
   subtypes: string;
   photoUrl: string;
   logoUrl: string;
+  websiteDescription: string;
+  workingHours: string;
+  cms: string;
+  sentDate: string;
+  response: string;
+  contactName: string;
+  facebook: string;
+  instagram: string;
+  googleMapsLink: string;
 }
 
 const SHEET_CSV_URL =
@@ -55,12 +66,6 @@ function parseNum(val: string | undefined): number | null {
   return isNaN(n) ? null : n;
 }
 
-// Column indices (0-based) matching the Google Sheet layout
-// A=0 Status, B=1 Website, C=2 (skip), D=3 Business Name, E=4 Rating, F=5 Reviews,
-// G=6 Email, H=7 Email Status, I=8 City (was "Preview URL" header?), J=9 Notes(?),
-// But actual mapping from the CSV response shows different order due to gviz output.
-// We'll use a header-matching approach that's more resilient.
-
 function findHeaderIndex(headers: string[], ...keywords: string[]): number {
   for (const kw of keywords) {
     const idx = headers.findIndex(
@@ -87,31 +92,39 @@ export async function fetchLeads(): Promise<Lead[]> {
 
   if (parsed.data.length < 2) return [];
 
-  // First row contains headers (possibly merged with first data value in gviz format)
   const headerRow = parsed.data[0];
 
-  // Build column index map by matching header prefixes
   const col = {
     status: findHeaderIndex(headerRow, "Status"),
     website: findHeaderIndex(headerRow, "Website"),
     businessName: findHeaderIndex(headerRow, "Business Name"),
     rating: findHeaderIndex(headerRow, "Rating"),
     reviews: findHeaderIndex(headerRow, "Reviews"),
-    email: findHeaderIndex(headerRow, "Email "),  // space to avoid matching "Email Status" or "Email Draft"
+    email: findHeaderIndex(headerRow, "Email "),
     emailStatus: findHeaderIndex(headerRow, "Email Status"),
+    emailDraft: findHeaderIndex(headerRow, "Email Draft"),
     city: findHeaderIndex(headerRow, "City"),
     notes: findHeaderIndex(headerRow, "Notes"),
     previewUrl: findHeaderIndex(headerRow, "Preview URL"),
     phone: findHeaderIndex(headerRow, "Phone"),
     fullAddress: findHeaderIndex(headerRow, "Full Address"),
+    postalCode: findHeaderIndex(headerRow, "Postal Code"),
     category: findHeaderIndex(headerRow, "Category"),
     subtypes: findHeaderIndex(headerRow, "Subtypes"),
     photoUrl: findHeaderIndex(headerRow, "Photo URL"),
     logoUrl: findHeaderIndex(headerRow, "Logo URL"),
+    websiteDescription: findHeaderIndex(headerRow, "Website Description"),
+    workingHours: findHeaderIndex(headerRow, "Working Hours"),
+    cms: findHeaderIndex(headerRow, "CMS", "Generator"),
+    sentDate: findHeaderIndex(headerRow, "Sent Date"),
+    response: findHeaderIndex(headerRow, "Response"),
+    contactName: findHeaderIndex(headerRow, "Contact Name"),
+    facebook: findHeaderIndex(headerRow, "Facebook"),
+    instagram: findHeaderIndex(headerRow, "Instagram"),
+    googleMapsLink: findHeaderIndex(headerRow, "Google Maps"),
   };
 
-  // If we can't find headers via prefix matching, fall back to known column positions
-  // A=0, B=1, D=3, E=4, F=5, G=6, H=7, I=8, J=9, K=10, P=15, Q=16, T=19, U=20, Z=25, AA=26
+  // Fallback column positions (0-based)
   const fallback = {
     status: 0,
     website: 1,
@@ -120,22 +133,31 @@ export async function fetchLeads(): Promise<Lead[]> {
     reviews: 5,
     email: 6,
     emailStatus: 7,
+    emailDraft: -1,
     city: 8,
     notes: 9,
     previewUrl: 10,
     phone: 15,
     fullAddress: 16,
+    postalCode: -1,
     category: 19,
     subtypes: 20,
     photoUrl: 25,
     logoUrl: 26,
+    websiteDescription: -1,
+    workingHours: -1,
+    cms: -1,
+    sentDate: -1,
+    response: -1,
+    contactName: -1,
+    facebook: -1,
+    instagram: -1,
+    googleMapsLink: -1,
   };
 
-  // Use header-based mapping if enough headers found, otherwise fallback
   const headersFound = Object.values(col).filter((v) => v !== -1).length;
   const mapping = headersFound >= 8 ? col : fallback;
 
-  // Data rows start at index 1 (skip header row)
   return parsed.data.slice(1).map((row) => ({
     status: safeGet(row, mapping.status),
     website: safeGet(row, mapping.website),
@@ -146,14 +168,25 @@ export async function fetchLeads(): Promise<Lead[]> {
       : null,
     email: safeGet(row, mapping.email),
     emailStatus: safeGet(row, mapping.emailStatus),
+    emailDraft: safeGet(row, mapping.emailDraft),
     city: safeGet(row, mapping.city),
     notes: safeGet(row, mapping.notes),
     previewUrl: safeGet(row, mapping.previewUrl),
     phone: safeGet(row, mapping.phone),
     fullAddress: safeGet(row, mapping.fullAddress),
+    postalCode: safeGet(row, mapping.postalCode),
     category: safeGet(row, mapping.category),
     subtypes: safeGet(row, mapping.subtypes),
     photoUrl: safeGet(row, mapping.photoUrl),
     logoUrl: safeGet(row, mapping.logoUrl),
+    websiteDescription: safeGet(row, mapping.websiteDescription),
+    workingHours: safeGet(row, mapping.workingHours),
+    cms: safeGet(row, mapping.cms),
+    sentDate: safeGet(row, mapping.sentDate),
+    response: safeGet(row, mapping.response),
+    contactName: safeGet(row, mapping.contactName),
+    facebook: safeGet(row, mapping.facebook),
+    instagram: safeGet(row, mapping.instagram),
+    googleMapsLink: safeGet(row, mapping.googleMapsLink),
   })).filter((l) => l.businessName.trim() !== "");
 }
