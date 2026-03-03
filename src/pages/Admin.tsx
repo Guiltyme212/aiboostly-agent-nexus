@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef, useTransition } from "react";
 import {
   fetchLeads,
   Lead,
@@ -11,17 +11,14 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
   SortingState,
-  ColumnFiltersState,
   VisibilityState,
   RowSelectionState,
 } from "@tanstack/react-table";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   Table,
-  TableBody,
   TableCell,
   TableHead,
   TableHeader,
@@ -31,6 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -74,14 +72,37 @@ import {
   Columns3,
   Download,
   Send,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
   Globe,
   MapPinned,
+  Pencil,
+  Loader2,
+  Check,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+/* ─── Apps Script API ─── */
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwL0ilnsP9NyGWBDbJgHCXT2LMNBVuo44jZg0VAPHkYmlQEXOEalH2-Enr2BeHic4yWWg/exec";
+
+async function updateSheet(businessName: string, column: string, value: string) {
+  const params = new URLSearchParams({
+    action: "updateCell",
+    row: businessName,
+    column,
+    value,
+  });
+  const response = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: "follow" });
+  const data = await response.json();
+  if (!data.success) throw new Error(data.error || "Update failed");
+  return data;
+}
+
+/* ─── Statuses list ─── */
+const ALL_STATUSES = [
+  "new", "scrape", "scraped", "analyze", "analyzed", "build",
+  "BUILDING", "DEPLOYING", "DEPLOYED", "NEEDS_PREVIEW",
+  "email", "emailed", "paid", "skip",
+];
 
 /* ─── Quick‑filter presets ─── */
 interface QuickFilter {
@@ -99,8 +120,117 @@ const QUICK_FILTERS: QuickFilter[] = [
   { label: "Receiving", key: "receiving", test: (l) => l.emailStatus.toUpperCase() === "RECEIVING" },
 ];
 
+/* ─── Inline editable status cell ─── */
+function StatusCell({
+  lead,
+  onUpdate,
+}: {
+  lead: Lead;
+  onUpdate: (businessName: string, column: string, value: string, field: keyof Lead) => Promise<void>;
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = e.target.value;
+    setIsSaving(true);
+    try {
+      await onUpdate(lead.businessName, "Status", newStatus, "status");
+    } finally {
+      setIsSaving(false);
+      setIsEditing(false);
+    }
+  };
+
+  if (isEditing) {
+    return (
+      <select
+        autoFocus
+        defaultValue={lead.status}
+        onChange={handleChange}
+        onBlur={() => setIsEditing(false)}
+        className="bg-card text-foreground text-xs rounded px-2 py-1 border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {ALL_STATUSES.map((s) => (
+          <option key={s} value={s}>{s}</option>
+        ))}
+      </select>
+    );
+  }
+
+  return (
+    <button
+      onClick={(e) => { e.stopPropagation(); setIsEditing(true); }}
+      disabled={isSaving}
+      className="cursor-pointer hover:ring-1 hover:ring-primary/50 rounded transition inline-flex items-center gap-1"
+      title="Click to change status"
+    >
+      <Badge variant="outline" className={`text-xs whitespace-nowrap ${getStatusColor(lead.status)}`}>
+        {lead.status}
+      </Badge>
+      {isSaving && <Loader2 className="h-3 w-3 animate-spin text-muted-foreground" />}
+    </button>
+  );
+}
+
+/* ─── Inline editable notes cell ─── */
+function NotesCell({
+  lead,
+  onUpdate,
+}: {
+  lead: Lead;
+  onUpdate: (businessName: string, column: string, value: string, field: keyof Lead) => Promise<void>;
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(lead.notes);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Sync when lead changes externally (auto-refresh)
+  useEffect(() => { setValue(lead.notes); }, [lead.notes]);
+
+  const save = async () => {
+    if (value === lead.notes) { setIsEditing(false); return; }
+    setIsSaving(true);
+    try {
+      await onUpdate(lead.businessName, "Notes", value, "notes");
+    } finally {
+      setIsSaving(false);
+      setIsEditing(false);
+    }
+  };
+
+  if (isEditing) {
+    return (
+      <input
+        autoFocus
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={save}
+        onKeyDown={(e) => { if (e.key === "Enter") save(); if (e.key === "Escape") setIsEditing(false); }}
+        className="bg-card text-foreground text-xs rounded px-2 py-1 border border-border w-full min-w-[120px] focus:outline-none focus:ring-1 focus:ring-primary"
+        onClick={(e) => e.stopPropagation()}
+      />
+    );
+  }
+
+  return (
+    <span
+      className="text-xs truncate max-w-[120px] block group cursor-pointer hover:text-foreground transition-colors relative"
+      onClick={(e) => { e.stopPropagation(); setIsEditing(true); }}
+      title="Click to edit notes"
+    >
+      {lead.notes || "—"}
+      <Pencil className="h-3 w-3 text-muted-foreground/0 group-hover:text-muted-foreground absolute -right-4 top-0.5 transition-colors" />
+    </span>
+  );
+}
+
 /* ─── Column defs ─── */
-function buildColumns(copyEmail: (e: string) => void): ColumnDef<Lead>[] {
+function buildColumns(
+  copyEmail: (e: string) => void,
+  handleCellUpdate: (businessName: string, column: string, value: string, field: keyof Lead) => Promise<void>,
+): ColumnDef<Lead>[] {
   return [
     {
       id: "select",
@@ -128,14 +258,7 @@ function buildColumns(copyEmail: (e: string) => void): ColumnDef<Lead>[] {
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => {
-        const s = row.original.status;
-        return (
-          <Badge variant="outline" className={`text-xs whitespace-nowrap ${getStatusColor(s)}`}>
-            {s}
-          </Badge>
-        );
-      },
+      cell: ({ row }) => <StatusCell lead={row.original} onUpdate={handleCellUpdate} />,
       sortingFn: (a, b) => {
         const pa = STATUS_PRIORITY[a.original.status.toUpperCase()] ?? 99;
         const pb = STATUS_PRIORITY[b.original.status.toUpperCase()] ?? 99;
@@ -150,12 +273,7 @@ function buildColumns(copyEmail: (e: string) => void): ColumnDef<Lead>[] {
         return (
           <div className="flex items-center gap-2.5 min-w-[180px]">
             {l.photoUrl && (
-              <img
-                src={l.photoUrl}
-                alt=""
-                className="h-7 w-7 rounded-full object-cover flex-shrink-0"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-              />
+              <img src={l.photoUrl} alt="" className="h-7 w-7 rounded-full object-cover flex-shrink-0" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
             )}
             <div>
               <p className="font-medium text-sm leading-tight">{l.businessName}</p>
@@ -213,11 +331,7 @@ function buildColumns(copyEmail: (e: string) => void): ColumnDef<Lead>[] {
         const e = row.original.email;
         if (!e) return <span className="text-xs text-muted-foreground">—</span>;
         return (
-          <button
-            className="text-xs text-blue-400 hover:underline truncate max-w-[160px] block text-left"
-            onClick={(ev) => { ev.stopPropagation(); copyEmail(e); }}
-            title="Click to copy"
-          >
+          <button className="text-xs text-blue-400 hover:underline truncate max-w-[160px] block text-left" onClick={(ev) => { ev.stopPropagation(); copyEmail(e); }} title="Click to copy">
             {e}
           </button>
         );
@@ -306,7 +420,7 @@ function buildColumns(copyEmail: (e: string) => void): ColumnDef<Lead>[] {
     {
       accessorKey: "notes",
       header: "Notes",
-      cell: ({ row }) => <span className="text-xs truncate max-w-[120px] block">{row.original.notes || "—"}</span>,
+      cell: ({ row }) => <NotesCell lead={row.original} onUpdate={handleCellUpdate} />,
     },
     {
       accessorKey: "sentDate",
@@ -356,9 +470,11 @@ function buildColumns(copyEmail: (e: string) => void): ColumnDef<Lead>[] {
 /* ─── Default visible columns ─── */
 const DEFAULT_HIDDEN: string[] = [
   "website", "emailDraft", "city", "phone", "fullAddress", "postalCode",
-  "subtypes", "websiteDescription", "workingHours", "cms", "notes",
+  "subtypes", "websiteDescription", "workingHours", "cms",
   "sentDate", "response", "contactName", "facebook", "instagram", "googleMapsLink",
 ];
+
+const ROW_HEIGHT = 52;
 
 export default function Admin() {
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -382,8 +498,16 @@ export default function Admin() {
     Object.fromEntries(DEFAULT_HIDDEN.map((k) => [k, false]))
   );
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 50 });
 
+  /* sorting transition */
+  const [isPending, startTransition] = useTransition();
+
+  /* side panel editable state */
+  const [panelNotes, setPanelNotes] = useState("");
+  const [panelStatus, setPanelStatus] = useState("");
+  const [panelSaving, setPanelSaving] = useState<string | null>(null);
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const loadData = useCallback(async () => {
@@ -406,10 +530,57 @@ export default function Admin() {
     return () => clearInterval(interval);
   }, [loadData]);
 
+  // Sync panel state when selectedLead changes
+  useEffect(() => {
+    if (selectedLead) {
+      setPanelNotes(selectedLead.notes);
+      setPanelStatus(selectedLead.status);
+    }
+  }, [selectedLead]);
+
   function copyEmail(email: string) {
     navigator.clipboard.writeText(email);
     toast({ title: "Email copied", description: email });
   }
+
+  /* ── Optimistic cell update ── */
+  const handleCellUpdate = useCallback(async (
+    businessName: string,
+    column: string,
+    value: string,
+    field: keyof Lead,
+  ) => {
+    // Optimistic: update local data immediately
+    const oldLeads = [...leads];
+    setLeads((prev) =>
+      prev.map((l) =>
+        l.businessName === businessName ? { ...l, [field]: value } : l
+      )
+    );
+    // Also update selectedLead if it's the same
+    setSelectedLead((prev) =>
+      prev && prev.businessName === businessName ? { ...prev, [field]: value } : prev
+    );
+
+    try {
+      await updateSheet(businessName, column, value);
+      toast({ title: `✅ ${column} updated`, description: `Set to "${value}"` });
+    } catch (err) {
+      // Revert on failure
+      setLeads(oldLeads);
+      setSelectedLead((prev) =>
+        prev && prev.businessName === businessName
+          ? oldLeads.find((l) => l.businessName === businessName) || prev
+          : prev
+      );
+      toast({
+        title: "❌ Update failed",
+        description: "Check Apps Script URL and permissions",
+        variant: "destructive",
+      });
+      throw err;
+    }
+  }, [leads, toast]);
 
   /* ── Derived unique values ── */
   const uniqueStatuses = useMemo(() => Array.from(new Set(leads.map((l) => l.status.toUpperCase()).filter(Boolean))).sort(), [leads]);
@@ -429,25 +600,18 @@ export default function Admin() {
   /* ── Quick‑filter counts ── */
   const quickFilterCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    QUICK_FILTERS.forEach((qf) => {
-      counts[qf.key] = leads.filter(qf.test).length;
-    });
+    QUICK_FILTERS.forEach((qf) => { counts[qf.key] = leads.filter(qf.test).length; });
     return counts;
   }, [leads]);
 
-  /* ── Pre‑filter data by quick filter + dropdown filters ── */
+  /* ── Pre‑filter data ── */
   const filteredData = useMemo(() => {
     let result = leads;
-    // quick filter
     const qf = QUICK_FILTERS.find((f) => f.key === quickFilter);
     if (qf) result = result.filter(qf.test);
-    // status dropdown
     if (statusFilter !== "ALL") result = result.filter((l) => l.status.toUpperCase() === statusFilter);
-    // city dropdown
     if (cityFilter !== "ALL") result = result.filter((l) => l.city === cityFilter);
-    // category dropdown
     if (categoryFilter !== "ALL") result = result.filter((l) => l.category === categoryFilter);
-    // global search
     if (globalSearch.trim()) {
       const q = globalSearch.toLowerCase();
       result = result.filter(
@@ -462,21 +626,31 @@ export default function Admin() {
   }, [leads, quickFilter, statusFilter, cityFilter, categoryFilter, globalSearch]);
 
   /* ── Columns ── */
-  const columns = useMemo(() => buildColumns(copyEmail), []);
+  const columns = useMemo(() => buildColumns(copyEmail, handleCellUpdate), [handleCellUpdate]);
 
-  /* ── Table instance ── */
+  /* ── Table instance (no pagination) ── */
   const table = useReactTable({
     data: filteredData,
     columns,
-    state: { sorting, columnVisibility, rowSelection, pagination },
-    onSortingChange: setSorting,
+    state: { sorting, columnVisibility, rowSelection },
+    onSortingChange: (updater) => {
+      startTransition(() => { setSorting(updater); });
+    },
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     enableRowSelection: true,
+  });
+
+  const { rows } = table.getRowModel();
+
+  /* ── Virtual scrolling ── */
+  const rowVirtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => tableContainerRef.current,
+    estimateSize: () => ROW_HEIGHT,
+    overscan: 10,
   });
 
   const selectedCount = Object.keys(rowSelection).length;
@@ -485,7 +659,7 @@ export default function Admin() {
   function exportCSV() {
     const visibleCols = table.getVisibleLeafColumns().filter((c) => c.id !== "select");
     const headerLine = visibleCols.map((c) => c.columnDef.header as string).join(",");
-    const rows = table.getFilteredRowModel().rows.map((row) =>
+    const csvRows = rows.map((row) =>
       visibleCols
         .map((col) => {
           const val = row.getValue(col.id);
@@ -494,7 +668,7 @@ export default function Admin() {
         })
         .join(",")
     );
-    const csv = [headerLine, ...rows].join("\n");
+    const csv = [headerLine, ...csvRows].join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -502,6 +676,28 @@ export default function Admin() {
     a.download = `leadpilot-export-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  /* ── Side panel save handlers ── */
+  async function savePanelStatus(newStatus: string) {
+    if (!selectedLead || newStatus === selectedLead.status) return;
+    setPanelSaving("status");
+    try {
+      await handleCellUpdate(selectedLead.businessName, "Status", newStatus, "status");
+      setPanelStatus(newStatus);
+    } finally {
+      setPanelSaving(null);
+    }
+  }
+
+  async function savePanelNotes() {
+    if (!selectedLead || panelNotes === selectedLead.notes) return;
+    setPanelSaving("notes");
+    try {
+      await handleCellUpdate(selectedLead.businessName, "Notes", panelNotes, "notes");
+    } finally {
+      setPanelSaving(null);
+    }
   }
 
   /* ── Stat cards config ── */
@@ -556,7 +752,7 @@ export default function Admin() {
           {QUICK_FILTERS.map((qf) => (
             <button
               key={qf.key}
-              onClick={() => { setQuickFilter(qf.key); setPagination((p) => ({ ...p, pageIndex: 0 })); }}
+              onClick={() => setQuickFilter(qf.key)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
                 quickFilter === qf.key
                   ? "bg-primary text-primary-foreground border-primary"
@@ -570,21 +766,21 @@ export default function Admin() {
 
         {/* Dropdown filters + search + column toggle */}
         <div className="flex flex-wrap items-center gap-3">
-          <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPagination((p) => ({ ...p, pageIndex: 0 })); }}>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-[160px] h-9 text-xs"><SelectValue placeholder="Status" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="ALL">All Statuses</SelectItem>
               {uniqueStatuses.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Select value={cityFilter} onValueChange={(v) => { setCityFilter(v); setPagination((p) => ({ ...p, pageIndex: 0 })); }}>
+          <Select value={cityFilter} onValueChange={setCityFilter}>
             <SelectTrigger className="w-[160px] h-9 text-xs"><SelectValue placeholder="City" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="ALL">All Cities</SelectItem>
               {uniqueCities.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Select value={categoryFilter} onValueChange={(v) => { setCategoryFilter(v); setPagination((p) => ({ ...p, pageIndex: 0 })); }}>
+          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
             <SelectTrigger className="w-[160px] h-9 text-xs"><SelectValue placeholder="Category" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="ALL">All Categories</SelectItem>
@@ -596,7 +792,7 @@ export default function Admin() {
             <Input
               placeholder="Search name, city, category, email…"
               value={globalSearch}
-              onChange={(e) => { setGlobalSearch(e.target.value); setPagination((p) => ({ ...p, pageIndex: 0 })); }}
+              onChange={(e) => setGlobalSearch(e.target.value)}
               className="pl-9 h-9 text-xs"
             />
           </div>
@@ -639,12 +835,18 @@ export default function Admin() {
           </div>
         )}
 
-        {/* Data Table */}
+        {/* Data Table with Virtual Scrolling */}
         {!error && (!loading || leads.length > 0) && (
-          <div className="rounded-lg border border-border overflow-hidden">
+          <div className={`rounded-lg border border-border overflow-hidden relative ${isPending ? "opacity-60" : ""}`} style={{ transition: "opacity 0.15s" }}>
+            {isPending && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            )}
+            {/* Sticky header */}
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader className="sticky top-0 z-10 bg-card">
+                <TableHeader className="bg-card">
                   {table.getHeaderGroups().map((hg) => (
                     <TableRow key={hg.id} className="hover:bg-transparent border-b border-border">
                       {hg.headers.map((header) => (
@@ -669,70 +871,52 @@ export default function Admin() {
                     </TableRow>
                   ))}
                 </TableHeader>
-                <TableBody>
-                  {table.getRowModel().rows.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={columns.length} className="text-center py-12 text-muted-foreground">
-                        No leads found matching your filters.
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    table.getRowModel().rows.map((row, idx) => (
-                      <TableRow
-                        key={row.id}
-                        className={`cursor-pointer h-10 ${idx % 2 === 1 ? "bg-muted/20" : ""} ${row.getIsSelected() ? "bg-primary/10" : ""}`}
-                        onClick={() => setSelectedLead(row.original)}
-                        data-state={row.getIsSelected() && "selected"}
-                      >
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id} className="py-1.5 px-3 text-sm">
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
               </Table>
             </div>
-          </div>
-        )}
 
-        {/* Pagination */}
-        {!error && filteredData.length > 0 && (
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <span>Rows per page</span>
-              <Select
-                value={String(pagination.pageSize)}
-                onValueChange={(v) => setPagination({ pageIndex: 0, pageSize: v === "ALL" ? filteredData.length : Number(v) })}
-              >
-                <SelectTrigger className="w-[70px] h-8 text-xs"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {[25, 50, 100].map((n) => <SelectItem key={n} value={String(n)}>{n}</SelectItem>)}
-                  <SelectItem value="ALL">All</SelectItem>
-                </SelectContent>
-              </Select>
-              <span className="ml-2">
-                Showing {pagination.pageIndex * pagination.pageSize + 1}–{Math.min((pagination.pageIndex + 1) * pagination.pageSize, filteredData.length)} of {filteredData.length}
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
-                <ChevronsLeft className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <span className="text-xs text-muted-foreground px-2">
-                Page {pagination.pageIndex + 1} of {table.getPageCount()}
-              </span>
-              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
-                <ChevronsRight className="h-4 w-4" />
-              </Button>
+            {/* Virtualized body */}
+            <div
+              ref={tableContainerRef}
+              className="overflow-auto"
+              style={{ height: "calc(100vh - 360px)" }}
+            >
+              <div style={{ height: `${rowVirtualizer.getTotalSize()}px`, position: "relative" }}>
+                {rows.length === 0 ? (
+                  <div className="text-center py-12 text-muted-foreground">
+                    No leads found matching your filters.
+                  </div>
+                ) : (
+                  <table className="w-full" style={{ tableLayout: "auto" }}>
+                    <tbody>
+                      {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                        const row = rows[virtualRow.index];
+                        return (
+                          <tr
+                            key={row.id}
+                            className={`cursor-pointer border-b border-border/50 hover:bg-muted/30 ${virtualRow.index % 2 === 1 ? "bg-muted/10" : ""} ${row.getIsSelected() ? "bg-primary/10" : ""}`}
+                            style={{
+                              height: `${virtualRow.size}px`,
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              width: "100%",
+                              transform: `translateY(${virtualRow.start}px)`,
+                            }}
+                            onClick={() => setSelectedLead(row.original)}
+                            data-state={row.getIsSelected() && "selected"}
+                          >
+                            {row.getVisibleCells().map((cell) => (
+                              <td key={cell.id} className="py-1.5 px-3 text-sm">
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -764,7 +948,7 @@ export default function Admin() {
                   <img src={selectedLead.photoUrl} alt={selectedLead.businessName} className="w-full h-48 object-cover rounded-lg" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
                 )}
 
-                {/* Rating & Status */}
+                {/* Rating & Editable Status */}
                 <div className="flex items-center gap-4">
                   {selectedLead.rating !== null && (
                     <span className={`text-lg font-semibold ${getRatingColor(selectedLead.rating)}`}>
@@ -772,7 +956,18 @@ export default function Admin() {
                       {selectedLead.reviews !== null && <span className="text-sm text-muted-foreground ml-1">({selectedLead.reviews} reviews)</span>}
                     </span>
                   )}
-                  <Badge variant="outline" className={getStatusColor(selectedLead.status)}>{selectedLead.status}</Badge>
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={panelStatus}
+                      onChange={(e) => { setPanelStatus(e.target.value); savePanelStatus(e.target.value); }}
+                      className="bg-card text-foreground text-sm rounded px-3 py-1.5 border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+                    >
+                      {ALL_STATUSES.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                    {panelSaving === "status" && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
+                  </div>
                 </div>
 
                 {/* Contact */}
@@ -854,6 +1049,28 @@ export default function Admin() {
                   </div>
                 )}
 
+                {/* Editable Notes */}
+                <div className="space-y-2">
+                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Notes</h3>
+                  <Textarea
+                    value={panelNotes}
+                    onChange={(e) => setPanelNotes(e.target.value)}
+                    className="min-h-[80px] text-sm"
+                    placeholder="Add notes…"
+                  />
+                  <Button
+                    size="sm"
+                    onClick={savePanelNotes}
+                    disabled={panelSaving === "notes" || panelNotes === selectedLead.notes}
+                  >
+                    {panelSaving === "notes" ? (
+                      <><Loader2 className="h-4 w-4 mr-1 animate-spin" /> Saving…</>
+                    ) : (
+                      <><Check className="h-4 w-4 mr-1" /> Save Notes</>
+                    )}
+                  </Button>
+                </div>
+
                 {/* Pipeline */}
                 <div className="space-y-3">
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Pipeline</h3>
@@ -875,14 +1092,6 @@ export default function Admin() {
                     </Button>
                   )}
                 </div>
-
-                {/* Notes */}
-                {selectedLead.notes && (
-                  <div className="space-y-2">
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Notes</h3>
-                    <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg whitespace-pre-wrap">{selectedLead.notes}</p>
-                  </div>
-                )}
 
                 {/* Open in Sheets */}
                 <Button variant="outline" className="w-full" asChild>
