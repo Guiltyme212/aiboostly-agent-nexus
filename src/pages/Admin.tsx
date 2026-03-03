@@ -80,23 +80,21 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-/* ─── Apps Script API ─── */
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwL0ilnsP9NyGWBDbJgHCXT2LMNBVuo44jZg0VAPHkYmlQEXOEalH2-Enr2BeHic4yWWg/exec";
-
+/* ─── Apps Script API (proxied through edge function to avoid CORS) ─── */
 async function updateSheet(businessName: string, column: string, value: string) {
-  const params = new URLSearchParams({
-    action: "updateCell",
-    row: businessName,
-    column,
-    value,
-  });
-  // no-cors avoids CORS redirect issues with Apps Script; fire-and-forget
-  await fetch(`${APPS_SCRIPT_URL}?${params}`, {
-    redirect: "follow",
-    mode: "no-cors",
-  });
-  // Can't read response in no-cors mode — optimistic UI + 60s auto-refresh confirms state
+  const response = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-sheet`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+      body: JSON.stringify({ businessName, column, value }),
+    }
+  );
+  const data = await response.json();
+  if (!response.ok || data.success === false) {
+    throw new Error(data.error || "Update failed");
+  }
+  return data;
 }
 
 /* ─── Statuses list ─── */
