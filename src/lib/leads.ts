@@ -41,16 +41,31 @@ export const STATUS_PRIORITY: Record<string, number> = {
 };
 
 export const STATUS_COLORS: Record<string, string> = {
-  NEEDS_PREVIEW: "bg-amber-500/20 text-amber-400 border-amber-500/30",
-  BUILDING: "bg-purple-500/20 text-purple-400 border-purple-500/30",
-  DEPLOYING: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  DEPLOYED: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  "new": "bg-zinc-700 text-zinc-300",
+  "scrape": "bg-blue-900/60 text-blue-300",
+  "scraped": "bg-blue-700/60 text-blue-200",
+  "analyze": "bg-violet-900/60 text-violet-300",
+  "analyzed": "bg-violet-700/60 text-violet-200",
+  "GO": "bg-lime-600/80 text-white",
+  "build": "bg-orange-900/60 text-orange-300",
+  "BUILDING": "bg-orange-600/70 text-white",
+  "PROCESSING": "bg-amber-600/70 text-white",
+  "DEPLOYING": "bg-yellow-600/70 text-white",
+  "DEPLOYED": "bg-emerald-600/80 text-white",
+  "NEEDS_PREVIEW": "bg-red-600/80 text-white",
+  "DONE": "bg-emerald-800/70 text-emerald-200",
+  "email": "bg-cyan-900/60 text-cyan-300",
+  "Email sent successfully": "bg-cyan-600/70 text-white",
+  "emailed": "bg-cyan-600/70 text-white",
+  "paid": "bg-yellow-500/80 text-black",
+  "skip": "bg-zinc-800 text-zinc-500",
 };
 
-export const DEFAULT_STATUS_COLOR = "bg-muted text-muted-foreground border-border";
+export const DEFAULT_STATUS_COLOR = "bg-zinc-700 text-zinc-400";
 
 export function getStatusColor(status: string): string {
-  return STATUS_COLORS[status?.toUpperCase()] ?? DEFAULT_STATUS_COLOR;
+  if (!status) return DEFAULT_STATUS_COLOR;
+  return STATUS_COLORS[status] ?? STATUS_COLORS[status.toUpperCase()] ?? DEFAULT_STATUS_COLOR;
 }
 
 export function getRatingColor(rating: number | null): string {
