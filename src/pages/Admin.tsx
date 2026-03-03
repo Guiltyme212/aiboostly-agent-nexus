@@ -139,7 +139,7 @@ async function updateSheet(businessName: string, column: string, value: string):
 
 /* ─── Statuses list ─── */
 const ALL_STATUSES = [
-  "new", "scrape", "scraped", "analyze", "analyzed", "build",
+  "new", "scrape", "scraped", "analyze", "analyzed", "GO", "build",
   "BUILDING", "DEPLOYING", "DEPLOYED", "NEEDS_PREVIEW",
   "email", "emailed", "paid", "skip",
 ];
