@@ -843,16 +843,19 @@ export default function Admin() {
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
               </div>
             )}
-            {/* Sticky header */}
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader className="bg-card">
+            <div
+              ref={tableContainerRef}
+              className="overflow-auto"
+              style={{ height: "calc(100vh - 360px)" }}
+            >
+              <table className="w-full border-collapse">
+                <thead className="sticky top-0 z-10 bg-card">
                   {table.getHeaderGroups().map((hg) => (
-                    <TableRow key={hg.id} className="hover:bg-transparent border-b border-border">
+                    <tr key={hg.id} className="border-b border-border">
                       {hg.headers.map((header) => (
-                        <TableHead
+                        <th
                           key={header.id}
-                          className="whitespace-nowrap text-xs h-9 px-3"
+                          className="whitespace-nowrap text-xs h-9 px-3 text-left font-medium text-muted-foreground"
                           style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                         >
                           {header.isPlaceholder ? null : header.column.getCanSort() ? (
@@ -866,42 +869,33 @@ export default function Admin() {
                           ) : (
                             flexRender(header.column.columnDef.header, header.getContext())
                           )}
-                        </TableHead>
+                        </th>
                       ))}
-                    </TableRow>
+                    </tr>
                   ))}
-                </TableHeader>
-              </Table>
-            </div>
-
-            {/* Virtualized body */}
-            <div
-              ref={tableContainerRef}
-              className="overflow-auto"
-              style={{ height: "calc(100vh - 360px)" }}
-            >
-              <div style={{ height: `${rowVirtualizer.getTotalSize()}px`, position: "relative" }}>
-                {rows.length === 0 ? (
-                  <div className="text-center py-12 text-muted-foreground">
-                    No leads found matching your filters.
-                  </div>
-                ) : (
-                  <table className="w-full" style={{ tableLayout: "auto" }}>
-                    <tbody>
+                </thead>
+                <tbody>
+                  {rows.length === 0 ? (
+                    <tr>
+                      <td colSpan={columns.length} className="text-center py-12 text-muted-foreground">
+                        No leads found matching your filters.
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {/* Spacer for virtual scroll offset */}
+                      {rowVirtualizer.getVirtualItems().length > 0 && (
+                        <tr style={{ height: `${rowVirtualizer.getVirtualItems()[0].start}px` }}>
+                          <td colSpan={columns.length} />
+                        </tr>
+                      )}
                       {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                         const row = rows[virtualRow.index];
                         return (
                           <tr
                             key={row.id}
                             className={`cursor-pointer border-b border-border/50 hover:bg-muted/30 ${virtualRow.index % 2 === 1 ? "bg-muted/10" : ""} ${row.getIsSelected() ? "bg-primary/10" : ""}`}
-                            style={{
-                              height: `${virtualRow.size}px`,
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              width: "100%",
-                              transform: `translateY(${virtualRow.start}px)`,
-                            }}
+                            style={{ height: `${virtualRow.size}px` }}
                             onClick={() => setSelectedLead(row.original)}
                             data-state={row.getIsSelected() && "selected"}
                           >
@@ -913,10 +907,16 @@ export default function Admin() {
                           </tr>
                         );
                       })}
-                    </tbody>
-                  </table>
-                )}
-              </div>
+                      {/* Bottom spacer */}
+                      {rowVirtualizer.getVirtualItems().length > 0 && (
+                        <tr style={{ height: `${rowVirtualizer.getTotalSize() - (rowVirtualizer.getVirtualItems()[rowVirtualizer.getVirtualItems().length - 1].end)}px` }}>
+                          <td colSpan={columns.length} />
+                        </tr>
+                      )}
+                    </>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         )}
