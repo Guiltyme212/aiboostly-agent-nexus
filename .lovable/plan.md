@@ -1,20 +1,29 @@
 
 
-## Plan: Add "Sheet Order" Reset Button
+## Plan: Fix Google Apps Script API Calls
 
-The table currently defaults to sorting by Status priority. The user wants a button to reset to the original Google Sheet row order (i.e., no sorting applied).
+The edge function proxy is deployed but the logs show no actual request handling — the requests may not be reaching it, or the Apps Script isn't processing them correctly. The user wants to switch to direct browser calls with a robust CORS fallback strategy.
 
 ### Changes in `src/pages/Admin.tsx`:
 
-1. **Add a "Sheet Order" button** next to the existing toolbar controls (near search/filter area)
-2. When clicked, it clears the sorting state: `setSorting([])`
-3. With an empty `SortingState`, TanStack Table returns rows in their original data order -- which matches the Google Sheet row order
-4. Style it as a small button with an icon (e.g., a list/reorder icon from lucide-react like `ListOrdered` or `ArrowDownUp`)
-5. Visually indicate when sheet order is active (sorting is empty) vs when a column sort is applied
+1. **Replace `updateSheet` function** (lines 84-99) with the user's provided implementation:
+   - Direct browser `fetch` to the Apps Script URL (no edge function proxy)
+   - `mode: 'cors'` with `redirect: 'follow'` as primary attempt
+   - Opaque response detection → `no-cors` fallback
+   - Full `no-cors` fire-and-forget as last resort
+   - Console logging at every step for debugging
+   - Business name sanitization: `businessName.split('\n')[0].trim()` to strip city subtitles
 
-### Technical Details
+2. **Add `APPS_SCRIPT_URL` constant** at the top, replacing the edge function URL usage
 
-- `setSorting([])` removes all sorting, reverting to the data's natural order from `fetchLeads()` which preserves Google Sheet row order
-- The button should be wrapped in `startTransition` for consistency with existing sort transitions
-- Default sorting currently starts as `[{ id: "status", desc: false }]` -- the new button overrides this to `[]`
+3. **Add console logging** to the `handleCellUpdate` callback (around line 548) so status changes are traceable:
+   - Log the business name and new value before calling `updateSheet`
+
+4. **No changes needed to callers** — `handleCellUpdate` already wraps `updateSheet` with optimistic updates and error handling; the new `updateSheet` returns `boolean` which is compatible
+
+### What stays the same:
+- All column definitions, StatusCell, NotesCell components
+- Optimistic update logic in `handleCellUpdate`
+- Toast notifications on success/failure
+- The edge function file remains (unused but harmless)
 
