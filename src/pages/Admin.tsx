@@ -70,6 +70,7 @@ import {
   ArrowUp,
   ArrowDown,
   Columns3,
+  ListOrdered,
   Download,
   Send,
   Globe,
@@ -796,6 +797,15 @@ export default function Admin() {
               className="pl-9 h-9 text-xs"
             />
           </div>
+          <Button
+            variant={sorting.length === 0 ? "secondary" : "outline"}
+            size="sm"
+            className="h-9"
+            onClick={() => startTransition(() => setSorting([]))}
+            title="Reset to Google Sheet row order"
+          >
+            <ListOrdered className="h-4 w-4 mr-2" /> Sheet Order
+          </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="h-9">
