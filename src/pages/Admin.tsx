@@ -91,10 +91,12 @@ async function updateSheet(businessName: string, column: string, value: string) 
     column,
     value,
   });
-  const response = await fetch(`${APPS_SCRIPT_URL}?${params}`, { redirect: "follow" });
-  const data = await response.json();
-  if (!data.success) throw new Error(data.error || "Update failed");
-  return data;
+  // no-cors avoids CORS redirect issues with Apps Script; fire-and-forget
+  await fetch(`${APPS_SCRIPT_URL}?${params}`, {
+    redirect: "follow",
+    mode: "no-cors",
+  });
+  // Can't read response in no-cors mode — optimistic UI + 60s auto-refresh confirms state
 }
 
 /* ─── Statuses list ─── */
