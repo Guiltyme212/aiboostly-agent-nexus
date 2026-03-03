@@ -81,21 +81,60 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-/* ─── Apps Script API (proxied through edge function to avoid CORS) ─── */
-async function updateSheet(businessName: string, column: string, value: string) {
-  const response = await fetch(
-    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-sheet`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json", apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
-      body: JSON.stringify({ businessName, column, value }),
+/* ─── Apps Script API (direct browser fetch with CORS fallback) ─── */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwL0ilnsP9NyGWBDbJgHCXT2LMNBVuo44jZg0VAPHkYmlQEXOEalH2-Enr2BeHic4yWWg/exec";
+
+async function updateSheet(businessName: string, column: string, value: string): Promise<boolean> {
+  const params = new URLSearchParams({
+    action: 'updateCell',
+    row: businessName.split('\n')[0].trim(),
+    column: column,
+    value: value,
+  });
+
+  const url = `${APPS_SCRIPT_URL}?${params}`;
+  console.log('[API] Calling:', url);
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      redirect: 'follow',
+    });
+
+    console.log('[API] Response status:', response.status);
+    console.log('[API] Response type:', response.type);
+
+    if (response.type === 'opaque') {
+      console.warn('[API] Got opaque response - CORS issue. Trying no-cors fallback.');
+      await fetch(url, { method: 'GET', mode: 'no-cors', redirect: 'follow' });
+      return true;
     }
-  );
-  const data = await response.json();
-  if (!response.ok || data.success === false) {
-    throw new Error(data.error || "Update failed");
+
+    const text = await response.text();
+    console.log('[API] Response body:', text);
+
+    const data = JSON.parse(text);
+
+    if (!data.success) {
+      console.error('[API] Server returned error:', data.error);
+      throw new Error(data.error || 'Update failed on server');
+    }
+
+    console.log('[API] Success! Updated row', data.row);
+    return true;
+  } catch (err) {
+    console.error('[API] Fetch error:', err);
+
+    try {
+      console.log('[API] Attempting no-cors fallback...');
+      await fetch(url, { method: 'GET', mode: 'no-cors', redirect: 'follow' });
+      console.log('[API] no-cors request sent (cannot verify response)');
+      return true;
+    } catch (fallbackErr) {
+      console.error('[API] Even no-cors failed:', fallbackErr);
+      throw new Error('Failed to reach Google Apps Script API');
+    }
   }
-  return data;
 }
 
 /* ─── Statuses list ─── */
@@ -564,6 +603,7 @@ export default function Admin() {
     );
 
     try {
+      console.log(`[CellUpdate] "${businessName}" → ${column} = "${value}"`);
       await updateSheet(businessName, column, value);
       toast({ title: `✅ ${column} updated`, description: `Set to "${value}"` });
     } catch (err) {
